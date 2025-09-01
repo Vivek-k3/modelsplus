@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="title desc">
+  <title>Models PLUS</title>
+  <desc>ModelsPLUS - Unified AI model directory + HTTP/MCP server.</desc>
+
+  <defs>
+    <!-- Colors -->
+    <linearGradient id="blkSheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset="0.55" stop-color="#000"/>
+      <stop offset="1" stop-color="#222"/>
+    </linearGradient>
+    <linearGradient id="edgeOrange" x1="0" y1="0" x2="1" y2="1">
+      <!-- “Trump orange” vibe -->
+      <stop offset="0" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FF8A00"/>
+    </linearGradient>
+    <linearGradient id="plusGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC38A"/>
+      <stop offset="1" stop-color="#FF6A00"/>
+    </linearGradient>
+
+    <!-- Soft shadow -->
+    <filter id="softDrop" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
+      <feOffset dy="10" dx="0" result="off"/>
+      <feColorMatrix in="off" type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0.35 0" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Hard bevel highlight -->
+    <filter id="spec" x="-50%" y="-50%" width="200%" height="200%">
+      <feSpecularLighting result="specOut" specularExponent="25" lighting-color="#fff">
+        <fePointLight x="-200" y="-100" z="150"/>
+      </feSpecularLighting>
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specMasked"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="specMasked"/>
+      </feMerge>
+    </filter>
+
+    <!-- Guideline stroke style -->
+    <style>
+      .guides { stroke:#1a1a1a; stroke-opacity:.2; stroke-width:2; fill:none; stroke-linecap:round }
+    </style>
+  </defs>
+
+  <!-- Background guides / motion lines -->
+  <g transform="skewX(-12) rotate(-6 400 200)">
+    <path class="guides" d="M-20 60 H820"/>
+    <path class="guides" d="M-20 120 H820"/>
+    <path class="guides" d="M-20 180 H820"/>
+    <path class="guides" d="M-20 240 H820"/>
+    <path class="guides" d="M-20 300 H820"/>
+  </g>
+
+  <!-- Angled composition wrapper -->
+  <g transform="translate(120,60) skewX(-12) rotate(-8 280 120)">
+    <!-- 3D EXTRUSION: multiple offset layers behind the face -->
+    <g id="extrude">
+      <!-- duplicate the face group with increasing offsets to simulate depth -->
+      <!-- Adjust depth by changing 'd' count and dx/dy -->
+      <!-- Edge layers -->
+      <g opacity="0.95">
+        <!-- 12 stepped layers -->
+        <!-- <g transform="translate(0,0)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.18" letter-spacing="2">M</text></g> -->
+        <g transform="translate(5,-4)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.20" letter-spacing="2">M</text></g>
+        <!-- <g transform="translate(10,-8)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.22" letter-spacing="2">M</text></g> -->
+        <g transform="translate(15,-12)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.24" letter-spacing="2">M</text></g>
+        <!-- <g transform="translate(20,-16)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.26" letter-spacing="2">M</text></g> -->
+        <g transform="translate(25,-20)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.28" letter-spacing="2">M</text></g>
+        <!-- <g transform="translate(30,-24)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.30" letter-spacing="2">M</text></g> -->
+        <g transform="translate(35,-28)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.32" letter-spacing="2">M</text></g>
+        <!-- <g transform="translate(40,-32)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.34" letter-spacing="2">M</text></g> -->
+        <g transform="translate(45,-36)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.36" letter-spacing="2">M</text></g>
+        <!-- <g transform="translate(50,-40)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.38" letter-spacing="2">M</text></g> -->
+        <g transform="translate(55,-44)"><text x="0" y="200" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-size="220" font-weight="900" fill="url(#edgeOrange)" fill-opacity="0.40" letter-spacing="2">M</text></g>
+      </g>
+    </g>
+
+    <!-- FRONT FACE -->
+    <g filter="url(#softDrop)">
+      <!-- Main word mark -->
+      <text x="0" y="200"
+            font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+            font-size="220" font-weight="900"
+            fill="url(#blkSheen)" stroke="#000" stroke-width="2" letter-spacing="2"
+            filter="url(#spec)">M</text>
+
+      <!-- Superscript + -->
+      <text x="210" y="50"
+            font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+            font-size="110" font-weight="900"
+            fill="url(#plusGlow)" stroke="#000" stroke-width="6"
+            filter="url(#spec)">+</text>
+
+      <!-- Thin orange edge stroke on the M for a crisp rim -->
+      <text x="0" y="200"
+            font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+            font-size="220" font-weight="900"
+            fill="none" stroke="url(#edgeOrange)" stroke-width="3" letter-spacing="2"
+            opacity="0.9">M</text>
+    </g>
+
+    <!-- Accent underlines / construction lines -->
+    <g>
+      <!-- <path d="M-10 260 L360 260" stroke="url(#edgeOrange)" stroke-width="8" stroke-linecap="round" opacity="0.9"/> -->
+      <!-- <path d="M-10 260 L360 260" stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-linecap="round" transform="translate(0,-4)"/> -->
+      <!-- <path d="M260 70 l80 -30" stroke="url(#edgeOrange)" stroke-width="6" stroke-linecap="round" opacity="0.8"/> -->
+      <!-- <path d="M260 70 l80 -30" stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-linecap="round" transform="translate(0,-3)"/> -->
+    </g>
+  </g>
+
+  <!-- Subtle ground shadow for overall tilt -->
+  <!-- <ellipse cx="430" cy="330" rx="260" ry="26" fill="#000" opacity="0.10" /> -->
+</svg>

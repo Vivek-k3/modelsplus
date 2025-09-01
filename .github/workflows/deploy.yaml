@@ -1,0 +1,40 @@
+name: Deploy API (SST)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/api/**'
+      - 'sst.config.ts'
+      - 'package.json'
+      - 'tsconfig.base.json'
+      - '.github/workflows/deploy.yaml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      # SST / Cloudflare
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.21
+
+      - name: Install deps (Bun)
+        run: bun install --frozen-lockfile
+
+      - name: Deploy SST
+        run: bun run deploy
+

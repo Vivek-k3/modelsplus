@@ -1,0 +1,10 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "extends": ["ultracite"],
+  "files": {
+    "includes": ["**", "!vendor", "!**/*.jsonc"]
+  },
+  "javascript": {
+    "globals": ["$config", "sst"]
+  }
+}

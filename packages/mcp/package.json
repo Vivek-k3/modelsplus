@@ -1,0 +1,47 @@
+{
+  "name": "modelsplus-mcp",
+  "version": "0.1.1",
+  "description": "MCP (Model Context Protocol) server for ModelsPlus - provides AI model and provider information via stdio",
+  "main": "index.js",
+  "module": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:shttp",
+    "build:stdio": "npx @smithery/cli@latest build src/index.ts --transport stdio && echo '#!/usr/bin/env node' | cat - .smithery/index.cjs > temp && mv temp .smithery/index.cjs && chmod +x .smithery/index.cjs",
+    "build:shttp": "npx @smithery/cli@latest build src/index.ts --transport shttp",
+    "prepare": "npm run build:stdio",
+    "dev": "npx @smithery/cli@latest dev",
+    "prepublishOnly": "npm run build:stdio",
+    "publish:stdio": "npm run build:stdio && npm publish"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "models",
+    "providers",
+    "llm",
+    "api"
+  ],
+  "author": "Vivek Kornepalli",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vivek-k3/modelsplus.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/vivek-k3/modelsplus/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "zod": "^3.25.46"
+  },
+  "devDependencies": {
+    "@smithery/cli": "^1.2.4",
+    "tsx": "^4.19.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

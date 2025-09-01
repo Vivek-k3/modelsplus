@@ -1,0 +1,26 @@
+{
+  "name": "modelsplus",
+  "private": true,
+  "packageManager": "bun@1.2.21",
+  "workspaces": [
+    "packages/*",
+    "packages/modelsplus-mcp"
+  ],
+  "scripts": {
+    "build": "bun run --workspaces build",
+    "dev": "sst dev",
+    "dev:api": "bun run --filter @modelsplus/api dev",
+    "deploy": "sst deploy",
+    "dev:mcp": "bun run --filter @modelsplus/modelsplus-mcp dev",
+    "sync:upstream": "bash scripts/subtree-pull.sh"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.2",
+    "@cloudflare/workers-types": "^4.20250830.0",
+    "@types/bun": "^1.2.21",
+    "@types/node": "^24.3.0",
+    "sst": "^3.17.12",
+    "tsup": "^8.5.0",
+    "ultracite": "5.2.9"
+  }
+}
