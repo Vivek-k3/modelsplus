@@ -44,8 +44,9 @@ jobs:
         run: |
           set -euo pipefail
           BEFORE=$(git rev-parse HEAD)
-          if git rev-parse --verify HEAD:vendor/models.dev >/dev/null 2>&1; then
-            git subtree pull --prefix=vendor/models.dev "$UPSTREAM_REPO" "${{ steps.upstream.outputs.default_branch }}" --squash -m "chore: sync models.dev upstream"
+          # Try pulling subtree; if it fails, add it instead
+          if git subtree pull --prefix=vendor/models.dev "$UPSTREAM_REPO" "${{ steps.upstream.outputs.default_branch }}" --squash -m "chore: sync models.dev upstream"; then
+            echo "Subtree pulled"
           else
             git subtree add --prefix=vendor/models.dev "$UPSTREAM_REPO" "${{ steps.upstream.outputs.default_branch }}" --squash -m "chore: sync models.dev upstream"
           fi
