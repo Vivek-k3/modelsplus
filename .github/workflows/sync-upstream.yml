@@ -44,12 +44,11 @@ jobs:
         run: |
           set -euo pipefail
           BEFORE=$(git rev-parse HEAD)
-          git subtree pull \
-            --prefix vendor/models.dev \
-            "$UPSTREAM_REPO" \
-            "${{ steps.upstream.outputs.default_branch }}" \
-            --squash \
-            -m "chore: sync models.dev upstream"
+          if git rev-parse --verify HEAD:vendor/models.dev >/dev/null 2>&1; then
+            git subtree pull --prefix=vendor/models.dev "$UPSTREAM_REPO" "${{ steps.upstream.outputs.default_branch }}" --squash -m "chore: sync models.dev upstream"
+          else
+            git subtree add --prefix=vendor/models.dev "$UPSTREAM_REPO" "${{ steps.upstream.outputs.default_branch }}" --squash -m "chore: sync models.dev upstream"
+          fi
           AFTER=$(git rev-parse HEAD)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"

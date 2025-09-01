@@ -30,6 +30,9 @@
   <a href="https://github.com/vivek-k3/modelsplus/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License">
   </a>
+  <a href="https://smithery.ai/server/@Vivek-k3/modelsplus">
+    <img src="https://smithery.ai/badge/@Vivek-k3/modelsplus" alt="Smithery">
+  </a>
 </p>
 
 ## Features
