@@ -10,9 +10,11 @@ export default $config({
   async run() {
     const { spawnSync } = await import("child_process");
 
-    spawnSync("./script/build.ts", [], {
+    const ret = spawnSync("./script/build.ts", [], {
       cwd: "./packages/web",
+      stdio: "inherit",
     });
+    if (ret.status !== 0) throw new Error("Build failed");
 
     const secrets = {
       PosthogToken: new sst.Secret("PosthogToken"),
