@@ -1,4 +1,4 @@
-name = "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+name = "Qwen3 Coder 480B A35B Instruct"
 release_date = "2025-07-23"
 last_updated = "2025-07-23"
 attachment = false
@@ -6,7 +6,11 @@ reasoning = false
 temperature = true
 knowledge = "2025-04"
 tool_call = true
-open_weights = true
+open_weights = false
+
+[cost]
+input = 0.0
+output = 0.0
 
 [limit]
 context = 262_144
@@ -15,7 +19,3 @@ output = 66_536
 [modalities]
 input = ["text"]
 output = ["text"]
-
-[cost]
-input = 0.38
-output = 1.53
