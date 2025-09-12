@@ -259,6 +259,16 @@ export const Rendered = renderToString(
           <th class="sortable" data-type="number">
             <div class="header-container">
               <span class="header-text">
+                Reasoning Cost
+                <br />
+                <span class="desc">per 1M tokens</span>
+              </span>
+              <span class="sort-indicator"></span>
+            </div>
+          </th>
+          <th class="sortable" data-type="number">
+            <div class="header-container">
+              <span class="header-text">
                 Cache Read Cost
                 <br />
                 <span class="desc">per 1M tokens</span>
@@ -306,6 +316,7 @@ export const Rendered = renderToString(
           )
           .flatMap(([providerId, provider]) =>
             Object.entries(provider.models)
+              .filter(([, model]) => !model.experimental)
               .sort(([, modelA], [, modelB]) =>
                 modelA.name.localeCompare(modelB.name)
               )
@@ -384,6 +395,7 @@ export const Rendered = renderToString(
                   </td>
                   <td>{renderCost(model.cost?.input)}</td>
                   <td>{renderCost(model.cost?.output)}</td>
+                  <td>{renderCost(model.cost?.reasoning)}</td>
                   <td>{renderCost(model.cost?.cache_read)}</td>
                   <td>{renderCost(model.cost?.cache_write)}</td>
                   <td>{model.limit.context.toLocaleString()}</td>
