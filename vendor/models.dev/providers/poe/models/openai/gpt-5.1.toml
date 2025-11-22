@@ -4,15 +4,13 @@ last_updated = "2025-11-12"
 attachment = true
 reasoning = true
 temperature = false
-knowledge = "2024-09-30"
-tool_call = true
-structured_output = true
 open_weights = false
+tool_call = true
 
 [cost]
-input = 1.07
-output = 8.5
-cache_read = 0.107
+input = 1.1
+output = 9
+cache_read = 0.11
 
 [limit]
 context = 400_000
@@ -20,7 +18,4 @@ output = 128_000
 
 [modalities]
 input = ["text", "image"]
-output = ["text", "image"]
-
-[provider]
-npm = "@ai-sdk/openai"
+output = ["text"]
