@@ -96,6 +96,7 @@ export const ModelFamilyValues = [
 
   // NVIDIA Nemotron
   "nemotron",
+  "nemotron-free",
 
   // AWS Titan
   "titan",
@@ -103,6 +104,8 @@ export const ModelFamilyValues = [
 
   // MiniMax
   "minimax",
+  "minimax-m2.5",
+  "minimax-m2.7",
   "minimax-free",
 
   // Hunyuan
@@ -127,9 +130,6 @@ export const ModelFamilyValues = [
   "solar",
   "solar-mini",
   "solar-pro",
-
-  // Exaone
-  "exaone",
 
   // Step (StepFun)
   "step",
@@ -196,6 +196,12 @@ export const ModelFamilyValues = [
 
   // Mimo
   "mimo",
+  "mimo-pro-free",
+  "mimo-omni-free",
+  "mimo-flash-free",
+
+  // Clarifai
+  "mm-poly",
 
   // Longcat
   "longcat",
