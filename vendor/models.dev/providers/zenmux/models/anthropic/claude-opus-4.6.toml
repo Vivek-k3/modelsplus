@@ -5,7 +5,7 @@ attachment = true
 reasoning = true
 temperature = true
 tool_call = true
-knowledge = "2025-01-01"
+knowledge = "2025-05-31"
 open_weights = false
 
 [cost]
@@ -21,3 +21,7 @@ output = 128_000
 [modalities]
 input = ["image", "text"]
 output = ["text"]
+
+[provider]
+npm = "@ai-sdk/anthropic"
+api = "https://zenmux.ai/api/anthropic/v1"

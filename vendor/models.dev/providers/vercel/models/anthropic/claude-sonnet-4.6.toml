@@ -6,7 +6,7 @@ attachment = true
 reasoning = true
 temperature = true
 tool_call = true
-knowledge = "2025-08"
+knowledge = "2025-08-31"
 open_weights = false
 
 interleaved = true
@@ -17,7 +17,8 @@ output = 15.00
 cache_read = 0.30
 cache_write = 3.75
 
-[cost.context_over_200k]
+[[cost.tiers]]
+tier = { size = 200_000 }
 input = 6.00
 output = 22.50
 cache_read = 0.60

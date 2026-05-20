@@ -1,0 +1,2 @@
+[extends]
+from = "zhipuai/glm-4.5-air"

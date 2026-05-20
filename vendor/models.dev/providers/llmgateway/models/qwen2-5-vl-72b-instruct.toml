@@ -1,0 +1,2 @@
+[extends]
+from = "alibaba/qwen2-5-vl-72b-instruct"
