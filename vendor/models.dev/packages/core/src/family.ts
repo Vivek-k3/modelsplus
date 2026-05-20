@@ -14,6 +14,7 @@ export const ModelFamilyValues = [
   "gpt-mini",
   "gpt-nano",
   "gpt-oss",
+  "gpt-image",
 
   // OpenAI o-series (reasoning models)
   "o",
@@ -46,16 +47,24 @@ export const ModelFamilyValues = [
 
   // Alibaba Qwen
   "qwen",
+  "qwen3.5",
+  "qwen3.6",
+  "qwen-free",
 
   // DeepSeek
   "deepseek",
   "deepseek-thinking",
+  "deepseek-flash",
+  "deepseek-flash-free",
+  "deepseek-flash-think",
 
   // Microsoft Phi
   "phi",
 
   // Moonshot Kimi
   "kimi",
+  "kimi-k2.5",
+  "kimi-k2.6",
   "kimi-free",
   "kimi-thinking",
 
@@ -110,6 +119,9 @@ export const ModelFamilyValues = [
 
   // Hunyuan
   "hunyuan",
+
+  // Hy
+  "Hy",
 
   // Yi
   "yi",
@@ -196,6 +208,12 @@ export const ModelFamilyValues = [
 
   // Mimo
   "mimo",
+  "mimo-pro",
+  "mimo-omni",
+  "mimo-v2-pro",
+  "mimo-v2-omni",
+  "mimo-v2.5-pro",
+  "mimo-v2.5",
   "mimo-pro-free",
   "mimo-omni-free",
   "mimo-flash-free",
@@ -271,9 +289,15 @@ export const ModelFamilyValues = [
   // RNJ
   "rnj",
 
+  // Tecent Hy
+  "hy3",
+  "hy3-free",
+
   // Ling & Ring (InclusionAI)
   "ling",
+  "ling-flash-free",
   "ring",
+  "ring-1t-free",
 
   // Kat Coder
   "kat-coder",
@@ -374,6 +398,18 @@ export const ModelFamilyValues = [
 
   // Writer
   "palmyra",
+
+  // ALLaM
+  "allam",
+
+  // Canopy Labs
+  "canopylabs",
+
+  // Groq
+  "groq",
+
+  // Elephant
+  "elephant",
 ] as const;
 
 export const ModelFamily = z.enum(ModelFamilyValues);
