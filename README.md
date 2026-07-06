@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/vivek-k3-modelsplus-badge.png)](https://mseep.ai/app/vivek-k3-modelsplus)
+
 <p align="center">
   <picture>
     <source srcset="public/logo.svg" media="(prefers-color-scheme: dark)">
