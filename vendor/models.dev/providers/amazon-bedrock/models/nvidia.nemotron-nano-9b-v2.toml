@@ -1,4 +1,5 @@
 name = "NVIDIA Nemotron Nano 9B v2"
+base_model = "nvidia/nemotron-nano-9b-v2"
 family = "nemotron"
 release_date = "2024-12-01"
 last_updated = "2024-12-01"
@@ -6,6 +7,7 @@ attachment = false
 reasoning = false
 temperature = true
 tool_call = true
+structured_output = true
 open_weights = false
 
 [cost]

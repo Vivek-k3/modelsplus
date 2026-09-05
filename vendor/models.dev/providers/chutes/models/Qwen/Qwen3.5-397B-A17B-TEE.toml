@@ -1,26 +1,19 @@
+# Toggle: chat_template_kwargs.enable_thinking = true|false
+# Source: https://huggingface.co/Qwen/Qwen3.5-397B-A17B (chat template exposes enable_thinking)
+# Verified live on POST https://llm.chutes.ai/v1/chat/completions: reasoning_content present when on, absent when off
+base_model = "alibaba/qwen3.5-397b-a17b"
 name = "Qwen3.5 397B A17B TEE"
-family = "qwen"
-release_date = "2026-02-18"
-last_updated = "2026-02-18"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-structured_output = true
-open_weights = true
-
-[cost]
-input = 0.39
-output = 2.34
-cache_read = 0.195
-
-[limit]
-context = 262_144
-output = 65_536
-
-[modalities]
-input = ["text", "image"]
-output = ["text"]
 
 [interleaved]
 field = "reasoning_content"
+
+[[reasoning_options]]
+type = "toggle"
+
+[cost]
+input = 0.45
+output = 3
+cache_read = 0.04499999999999999
+
+[modalities]
+input = ["text", "image"]
