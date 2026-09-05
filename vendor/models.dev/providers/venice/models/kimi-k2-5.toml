@@ -1,14 +1,10 @@
-name = "Kimi K2.5"
-family = "kimi"
-attachment = true
-reasoning = true
-tool_call = true
-structured_output = true
-temperature = true
-knowledge = "2024-04"
+# Live /models (2026-06-25): none|low|medium|high; no dedicated reasoning budget.
+# https://api.venice.ai/api/v1/models?type=text (accessed 2026-06-25)
+base_model = "moonshotai/kimi-k2.5"
 release_date = "2026-01-27"
-last_updated = "2026-03-16"
-open_weights = true
+last_updated = "2026-06-11"
+knowledge = "2024-04"
+reasoning_options = []
 
 [interleaved]
 field = "reasoning_content"
@@ -16,7 +12,7 @@ field = "reasoning_content"
 [cost]
 input = 0.56
 output = 3.5
-cache_read = 0.11
+cache_read = 0.22
 
 [limit]
 context = 256_000
@@ -24,4 +20,3 @@ output = 65_536
 
 [modalities]
 input = ["text", "image"]
-output = ["text"]
