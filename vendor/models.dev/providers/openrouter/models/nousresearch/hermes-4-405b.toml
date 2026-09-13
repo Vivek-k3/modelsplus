@@ -1,22 +1,26 @@
-id = "nousresearch/hermes-4-405b"
 name = "Hermes 4 405B"
+description = "Reasoning model for deliberate analysis, multi-step problem solving, and tool use"
 family = "hermes"
-release_date = "2025-08-25"
-last_updated = "2025-08-25"
+release_date = "2025-08-26"
+last_updated = "2025-08-26"
 attachment = false
 reasoning = true
 temperature = true
-knowledge = "2023-12"
-tool_call = true
+tool_call = false
+structured_output = false
+knowledge = "2024-08-31"
 open_weights = true
 
+[[reasoning_options]]
+type = "toggle"
+
 [cost]
-input = 1.00
-output = 3.00
+input = 1
+output = 3
 
 [limit]
 context = 131_072
-output = 131_072
+output = 117_964
 
 [modalities]
 input = ["text"]
