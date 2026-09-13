@@ -1,0 +1,15 @@
+base_model = "mistral/magistral-medium-latest"
+attachment = true
+structured_output = true
+reasoning_options = []
+
+[cost]
+input = 1.5
+output = 7.5
+cache_read = 0.15
+
+[limit]
+context = 262_144
+
+[modalities]
+input = ["text", "image"]

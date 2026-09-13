@@ -1,0 +1,14 @@
+base_model = "openai/gpt-oss-120b"
+name = "GPT OSS 120B (Scaleway)"
+structured_output = false
+
+[[reasoning_options]]
+type = "effort"
+values = ["low", "medium", "high"]
+
+[cost]
+input = 0.17388
+output = 0.69552
+
+[limit]
+context = 128_000
