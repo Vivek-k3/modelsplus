@@ -1,22 +1,18 @@
-name = "MiniMax M2.5"
-family = "minimax-m2.5"
-release_date = "2026-02-12"
+# https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-minimax-minimax-m2-5.html
+# https://aws.amazon.com/bedrock/pricing/ (US Standard pricing)
+# MiniMax M2.5 has always-on thinking, matching the first-party API.
+# Live 2026-09-09: maxTokens=98304 accepted and reasoningContent returned with no reasoning configuration.
+# Live Converse 2026-09-11: outputConfig.textFormat enforced a JSON schema.
+base_model = "minimax/MiniMax-M2.5"
 last_updated = "2026-03-18"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-structured_output = false
-open_weights = true
+reasoning_options = []
+interleaved = true
+structured_output = true
 
 [cost]
 input = 0.30
 output = 1.20
 
 [limit]
-context = 1_000_000
-output = 131_072
-
-[modalities]
-input = ["text"]
-output = ["text"]
+context = 196_608
+output = 98_304

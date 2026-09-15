@@ -1,22 +1,11 @@
-name = "Gemma 3 4B"
-family = "gemma"
-release_date = "2025-03-13"
-last_updated = "2025-03-13"
-attachment = true
-reasoning = false
-temperature = true
-knowledge = "2024-10"
+base_model = "google/gemma-3-4b-it"
+description = "Open Gemma instruction model for efficient chat and self-hosted deployments"
 tool_call = false
-open_weights = true
+structured_output = true
 
 [cost]
-input = 0.01703
-output = 0.06815
+input = 0.05
+output = 0.1
 
 [limit]
-context = 96_000
-output = 96_000
-
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+output = 16_384
