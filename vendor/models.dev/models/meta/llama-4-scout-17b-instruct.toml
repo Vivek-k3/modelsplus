@@ -1,0 +1,24 @@
+# https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+name = "Llama 4 Scout 17B Instruct"
+description = "Open Llama with long-context vision for efficient multimodal agents"
+family = "llama"
+release_date = "2025-04-05"
+last_updated = "2025-04-05"
+attachment = true
+reasoning = false
+temperature = true
+tool_call = true
+knowledge = "2024-08"
+open_weights = true
+
+[limit]
+context = 10_000_000
+output = 16_384
+
+[modalities]
+input = ["text", "image"]
+output = ["text"]
+
+[[weights]]
+label = "Hugging Face"
+url = "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct"
