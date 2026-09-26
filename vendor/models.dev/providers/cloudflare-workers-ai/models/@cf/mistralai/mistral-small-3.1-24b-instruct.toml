@@ -1,21 +1,15 @@
+base_model = "mistral/mistral-small-3-1-24b-instruct-2503"
 name = "Mistral Small 3.1 24B Instruct"
-family = "mistral-small"
-release_date = "2025-04-11"
-last_updated = "2025-04-11"
+description = "Efficient Mistral model for fast chat, extraction, and production assistants"
 attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
+structured_output = false
 
 [cost]
-input = 0.35
-output = 0.56
+input = 0.351
+output = 0.555
 
 [limit]
-context = 128000
-output = 16384
+output = 128_000
 
 [modalities]
 input = ["text"]
-output = ["text"]

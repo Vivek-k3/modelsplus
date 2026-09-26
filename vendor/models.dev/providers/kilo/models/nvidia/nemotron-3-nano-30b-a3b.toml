@@ -1,20 +1,14 @@
-name = "NVIDIA: Nemotron 3 Nano 30B A3B"
-release_date = "2024-12"
-last_updated = "2026-02-04"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+base_model = "nvidia/nemotron-3-nano-30b-a3b"
+structured_output = true
+
+[[reasoning_options]]
+type = "effort"
+values = ["none", "high"]
 
 [cost]
 input = 0.05
 output = 0.2
+cache_read = 0.03
 
 [limit]
-context = 262144
-output = 52429
-
-[modalities]
-input = ["text"]
-output = ["text"]
+output = 235_929
