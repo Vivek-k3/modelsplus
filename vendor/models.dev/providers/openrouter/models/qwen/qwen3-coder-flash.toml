@@ -1,23 +1,22 @@
-name = "Qwen3 Coder Flash"
-family = "qwen"
-release_date = "2025-07-23"
-last_updated = "2025-07-23"
-attachment = false
-reasoning = false
-temperature = true
-knowledge = "2025-04"
-tool_call = true
+base_model = "alibaba/qwen3-coder-flash"
 structured_output = false
-open_weights = false
 
 [cost]
-input = 0.30
-output = 1.50
+input = 0.195
+output = 0.975
+cache_read = 0.039
+cache_write = 0.24375
 
-[limit]
-context = 128_000
-output = 66_536
+[[cost.tiers]]
+tier = { type = "context", size = 32_000 }
+input = 0.325
+output = 1.625
+cache_read = 0.065
+cache_write = 0.40625
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[[cost.tiers]]
+tier = { type = "context", size = 128_000 }
+input = 0.52
+output = 2.6
+cache_read = 0.104
+cache_write = 0.65
