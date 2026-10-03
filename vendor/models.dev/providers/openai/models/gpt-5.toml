@@ -1,25 +1,16 @@
-name = "GPT-5"
-family = "gpt"
-release_date = "2025-08-07"
-last_updated = "2025-08-07"
-attachment = true
-reasoning = true
-temperature = false
-knowledge = "2024-09-30"
-tool_call = true
-structured_output = true
-open_weights = false
+base_model = "openai/gpt-5"
+
+reasoning_options = [{ type = "effort", values = ["minimal", "low", "medium", "high"] }]
 
 [cost]
 input = 1.25
 output = 10.00
 cache_read = 0.125
 
-[limit]
-context = 400_000
-input = 272_000
-output = 128_000
+[experimental.modes.fast]
+cost = { input = 2.50, output = 20.00, cache_read = 0.25 }
+provider = { body = { service_tier = "priority" } }
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[experimental.modes.flex]
+cost = { input = 0.625, output = 5.00, cache_read = 0.0625 }
+provider = { body = { service_tier = "flex" } }
