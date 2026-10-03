@@ -1,0 +1,16 @@
+# Not included in subscription
+base_model = "sarvam/sarvam-105b"
+structured_output = false
+
+[[reasoning_options]]
+type = "effort"
+values = ["low", "medium", "high"]
+
+[cost]
+input = 0.054
+output = 0.2124
+cache_read = 0.0336
+
+[limit]
+input = 131_072
+output = 4_096
