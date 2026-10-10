@@ -1,0 +1,15 @@
+# https://novita.ai/models/model-detail/qwen-qwen3.7-max
+# Toggle: thinking.type = enabled|disabled
+# Budget: thinking_budget (reasoning tokens)
+# Public pricing does not advertise a cache-write charge.
+base_model = "alibaba/qwen3.7-max"
+structured_output = true
+reasoning_options = [{ type = "toggle" }, { type = "budget_tokens" }]
+
+[interleaved]
+field = "reasoning_content"
+
+[cost]
+input = 1.25
+output = 3.75
+cache_read = 0.25
