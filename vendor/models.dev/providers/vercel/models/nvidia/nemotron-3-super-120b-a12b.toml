@@ -1,0 +1,15 @@
+base_model = "nvidia/nemotron-3-super-120b-a12b"
+name = "NVIDIA Nemotron 3 Super 120B A12B"
+tool_call = false
+
+[[reasoning_options]]
+type = "effort"
+values = ["none", "low", "high"]
+
+[cost]
+input = 0.15
+output = 0.65
+
+[limit]
+context = 256_000
+output = 32_000
