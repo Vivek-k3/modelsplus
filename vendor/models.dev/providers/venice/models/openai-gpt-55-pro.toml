@@ -1,0 +1,25 @@
+# Live /models (2026-06-25): none|minimal|low|medium|high; no dedicated reasoning budget.
+# https://api.venice.ai/api/v1/models?type=text (accessed 2026-06-25)
+base_model = "openai/gpt-5.5-pro"
+family = "gpt"
+release_date = "2026-04-24"
+last_updated = "2026-06-11"
+
+[[reasoning_options]]
+type = "effort"
+values = ["medium", "high", "xhigh"]
+
+[cost]
+input = 30
+output = 180
+
+[[cost.tiers]]
+tier = { type = "context", size = 272_000 }
+input = 60
+output = 270
+
+[limit]
+context = 1_000_000
+
+[modalities]
+input = ["text", "image"]

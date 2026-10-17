@@ -1,0 +1,13 @@
+# Included in subscription
+base_model = "thedrummer/cydonia-24b-v4.1"
+name = "The Drummer Cydonia 24B v4.1"
+tool_call = true
+structured_output = false
+
+[cost]
+input = 0.35
+output = 0.55
+cache_read = 0.16
+
+[limit]
+input = 131_072

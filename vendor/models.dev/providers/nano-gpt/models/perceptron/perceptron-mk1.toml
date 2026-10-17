@@ -1,0 +1,11 @@
+# Not included in subscription
+base_model = "perceptron/perceptron-mk1"
+reasoning_options = []
+
+[cost]
+input = 0.15
+output = 1.5
+cache_read = 0.075
+
+[limit]
+input = 32_768

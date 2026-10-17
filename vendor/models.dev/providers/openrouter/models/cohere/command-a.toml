@@ -1,0 +1,6 @@
+base_model = "cohere/command-a"
+description = "Cohere command model for multilingual enterprise agents, tools, and chat"
+
+[cost]
+input = 2.5
+output = 10

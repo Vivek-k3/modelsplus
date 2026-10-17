@@ -1,0 +1,11 @@
+# Not included in subscription
+base_model = "inception/mercury-2"
+reasoning_options = []
+
+[cost]
+input = 0.25
+output = 0.75
+cache_read = 0.025
+
+[limit]
+input = 128_000
