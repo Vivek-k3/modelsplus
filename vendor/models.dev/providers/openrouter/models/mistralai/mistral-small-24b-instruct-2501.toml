@@ -1,0 +1,6 @@
+base_model = "mistral/mistral-small-24b-instruct-2501"
+description = "Efficient Mistral model for fast chat, extraction, and production assistants"
+
+[cost]
+input = 0.05
+output = 0.08
