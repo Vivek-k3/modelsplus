@@ -1,23 +1,29 @@
+# Mid-conversation (@ai-sdk/gateway): no per-turn effort or tool-change mechanism reaches this model on this API. system_updates left unset: live cache results on the default route were inconclusive.
+schema = 2
+base_model = "minimax/MiniMax-M2.5"
 name = "MiniMax M2.5"
-family = "minimax"
-attachment = false
-reasoning = true
-tool_call = true
-temperature = true
-release_date = "2026-02-12"
-last_updated = "2026-02-19"
-open_weights = false
 
-[cost]
-input = 0.3
-output = 1.2
-cache_read = 0.03
-cache_write = 0.375
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, budget = {} }
+cache = { implicit = true, explicit = true }
 
 [limit]
-context = 204_800
 output = 131_000
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
+
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 0.3
+cache = { read = 0.03, write = 0.375 }
+
+[cost.text.output]
+price = 1.2

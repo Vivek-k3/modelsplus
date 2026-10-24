@@ -1,0 +1,19 @@
+schema = 2
+base_model = "alibaba/qwen3.8-2.4t-a95b"
+description = "Qwen instruction model for multilingual chat, reasoning, and tool use"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "medium", "xhigh"] }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 2.5
+
+[cost.text.output]
+price = 6.25

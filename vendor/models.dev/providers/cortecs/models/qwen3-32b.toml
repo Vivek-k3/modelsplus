@@ -1,23 +1,20 @@
-name = "Qwen3 32B"
-family = "qwen"
-release_date = "2025-04-29"
-last_updated = "2025-04-29"
-knowledge = "2024-12"
-attachment = false
-reasoning = false
-tool_call = true
-temperature = true
-open_weights = true
+# Mid-conversation: Cortecs serves this model on POST https://api.cortecs.ai/v1/chat/completions; reasoning_effort and tools are per-request fields with no per-turn effort or tool-change mechanism (effort_updates = false, tools.updates = false). https://docs.cortecs.ai/api/chat-completions
+# Cache: not supported by the routed providers (amazon_ireland). https://docs.cortecs.ai/routing/prompt-caching
+schema = 2
+base_model = "alibaba/qwen3-32b"
+description = "Qwen instruction model for multilingual chat, reasoning, and tool use"
 
-
-[cost]
-input = 0.099
-output = 0.33
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+cache = false
+structured_output = true
 
 [limit]
 context = 16_384
-output = 16_384
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 0.179
+
+[cost.text.output]
+price = 0.697

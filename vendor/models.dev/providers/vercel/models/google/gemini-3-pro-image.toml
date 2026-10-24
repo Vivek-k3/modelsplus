@@ -1,22 +1,13 @@
-name = "Nano Banana Pro (Gemini 3 Pro Image)"
-family = "gemini-pro"
-release_date = "2025-09"
-last_updated = "2025-09"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
-knowledge = "2025-03"
+schema = 2
+base_model = "google/gemini-3-pro-image"
 
-[cost]
-input = 2
-output = 120
+[capabilities]
+reasoning = { supported = false }
+cache = { implicit = true }
 
-[limit]
-context = 65536
-output = 32768
+[cost.text.input]
+price = 2
+cache = { read = 0.2 }
 
-[modalities]
-input = ["text"]
-output = ["text", "image"]
+[cost.text.output]
+price = 12

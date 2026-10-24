@@ -1,0 +1,19 @@
+schema = 2
+base_model = "alibaba/qwen3-vl-235b-a22b-thinking"
+description = "Qwen vision-language model for visual reasoning, documents, and agent tasks"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "medium", "high"] }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 0.98
+
+[cost.text.output]
+price = 3.95

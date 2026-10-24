@@ -1,20 +1,24 @@
-name = "OpenAI: o1-pro"
-release_date = "2025-03-19"
-last_updated = "2026-03-15"
-attachment = true
-reasoning = true
-temperature = false
-tool_call = false
-open_weights = false
-
-[cost]
-input = 150
-output = 600
-
-[limit]
-context = 200000
-output = 100000
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+schema = 2
+base_model = "openai/o1-pro"
+description = "O-series reasoning model for hard analysis, math, coding, and planning"
 
 [modalities]
-input = ["image", "pdf", "text"]
+input = ["text", "image/jpeg", "image/png", "image/gif", "image/webp", "application/pdf"]
 output = ["text"]
+
+[capabilities]
+tools = { supported = false }
+reasoning = { supported = true, effort = ["high"] }
+structured_output = true
+
+[cost.text.input]
+price = 150
+
+[cost.text.output]
+price = 600
+
+[cost.web_search]
+price = 10

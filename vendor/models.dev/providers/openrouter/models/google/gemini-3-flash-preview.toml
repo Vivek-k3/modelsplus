@@ -1,27 +1,39 @@
-name = "Gemini 3 Flash Preview"
-family = "gemini-flash"
-release_date = "2025-12-17"
-last_updated = "2025-12-17"
-attachment = true
-reasoning = true
-temperature = true
-knowledge = "2025-01"
-tool_call = true
+# Mid-conversation (Chat Completions, probed 2026-10-19): system_updates = false: Gemini has one systemInstruction, so it is hoisted (live: cache prefix lost; https://openrouter.ai/docs/guides/best-practices/prompt-caching#google-gemini)
+# effort_updates = false: configuration_update is rejected with a 400 for this model (https://openrouter.ai/docs/guides/best-practices/reasoning-tokens#mid-conversation-effort)
+# tools.updates = false: Chat Completions rejects tool_addition/tool_removal for non-Claude-4.8+ models (live 400)
+# Cache: implicit on Gemini 2.5+; cache_control uses only the last breakpoint, 5m TTL (https://openrouter.ai/docs/guides/best-practices/prompt-caching#google-gemini)
+schema = 2
+base_model = "google/gemini-3-flash-preview"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "minimal", "low", "medium", "high"] }
 structured_output = true
-open_weights = false
+cache = { implicit = true, explicit = { ttl = ["5m"], max_breakpoints = 1 } }
 
-[interleaved]
-field = "reasoning_details"
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_details" }
 
-[cost]
-input = 0.50
-output = 3.00
-cache_read = 0.05
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
 
-[limit]
-context = 1_048_576
-output = 65_536
+[api.messages]
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic-compatible" }
 
-[modalities]
-input = ["text", "image", "audio", "video", "pdf"]
-output = ["text"]
+[cost.text.input]
+price = 0.5
+cache = { read = 0.05, write = 0.083333 }
+
+[cost.text.output]
+price = 3
+reasoning = 3
+
+[cost.image.input]
+price = 0.5
+
+[cost.audio.input]
+price = 1
+cache = { read = 0.1 }
+
+[cost.web_search]
+price = 14

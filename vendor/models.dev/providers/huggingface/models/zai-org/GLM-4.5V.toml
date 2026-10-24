@@ -1,0 +1,25 @@
+# Modalities: the router catalog lists ["text","image"]; exact types are the lab's (zhipuai/glm-4.5v).
+schema = 2
+base_model = "zhipuai/glm-4.5v"
+
+[modalities]
+input = ["text", "image/jpeg", "image/png"]
+output = ["text"]
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+
+[limit]
+context = 65_536
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 0.6
+
+[cost.text.output]
+price = 1.8

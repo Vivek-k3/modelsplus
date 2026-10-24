@@ -1,24 +1,24 @@
-name = "GPT-5.1 Codex"
-family = "gpt"
-release_date = "2025-11-13"
-last_updated = "2025-11-13"
-attachment = true
-reasoning = true
-temperature = false
-knowledge = "2024-09-30"
-tool_call = true
+# Source: https://routellm.abacus.ai/v1/models
+# RouteLLM API does not report thinking: true for this ID.
+# RouteLLM input_modalities: ['text', 'image']
+# RouteLLM output_modalities: ['text']
+# RouteLLM context_length: 400000
+# RouteLLM max_completion_tokens: 128000
+# RouteLLM input_token_rate: 0.00000125
+# RouteLLM output_token_rate: 0.00001
+# RouteLLM cached_input_token_rate: 0.000000125
+# Status: absent from https://routellm.abacus.ai/v1/models (accessed 2026-10-21), which listed it when this file was written.
+schema = 2
+base_model = "openai/gpt-5.1-codex"
+status = "deprecated"
+
+[capabilities]
+reasoning = { supported = true }
 structured_output = true
-open_weights = false
 
-[cost]
-input = 1.25
-output = 10.00
+[cost.text.input]
+price = 1.25
+cache = { read = 0.125 }
 
-[limit]
-context = 400_000
-input = 272_000
-output = 128_000
-
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[cost.text.output]
+price = 10
