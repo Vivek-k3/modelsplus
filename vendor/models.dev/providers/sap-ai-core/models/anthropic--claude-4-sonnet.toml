@@ -1,24 +1,18 @@
+# Cost: Anthropic list price (https://docs.anthropic.com/en/docs/about-claude/pricing), used as a USD proxy.
+#   SAP AI Core bills capacity units (CU): per-model GenAI-token rates (SAP Note 3437766; public calculator
+#   https://ai-core-calculator.cfapps.eu10.hana.ondemand.com/) x 1.90385 CU per GenAI token, at a CU price set by the SAP contract. There is no public USD rate.
+# Deprecated: the SAP AI Core calculator (https://ai-core-calculator.cfapps.eu10.hana.ondemand.com/, 2026-10-21) marked deprecated with retirement date 2026-10-14 (version 1).
+schema = 2
+base_model = "anthropic/claude-sonnet-4-20250514"
 name = "anthropic--claude-4-sonnet"
-family = "claude-sonnet"
-release_date = "2025-05-22"
-last_updated = "2025-05-22"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-03-31"
-open_weights = false
+status = "deprecated"
 
-[cost]
-input = 3.00
-output = 15.00
-cache_read = 0.30
-cache_write = 3.75
+[capabilities]
+reasoning = { supported = true, budget = { min = 1_024 } }
 
-[limit]
-context = 200_000
-output = 64_000
+[cost.text.input]
+price = 3
+cache = { read = 0.3, write = 3.75 }
 
-[modalities]
-input = ["text", "image", "pdf"]
-output = ["text"]
+[cost.text.output]
+price = 15

@@ -1,23 +1,26 @@
-name = "Mercury 2"
-family = "mercury"
-release_date = "2026-03-04"
-last_updated = "2026-03-04"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
+# Mid-conversation (Chat Completions, probed 2026-10-19): system_updates = false: hoisted on Inception (live)
+# effort_updates = false: configuration_update is rejected with a 400 for this model (https://openrouter.ai/docs/guides/best-practices/reasoning-tokens#mid-conversation-effort)
+# tools.updates = false: Chat Completions rejects tool_addition/tool_removal for non-Claude-4.8+ models (live 400)
+schema = 2
+base_model = "inception/mercury-2"
+description = "Reasoning model for deliberate analysis, multi-step problem solving, and tool use"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "low", "medium", "high"] }
 structured_output = true
-open_weights = false
 
-[cost]
-input = 0.25
-output = 0.75
-cache_read = 0.025
+[api.chat-completions]
 
-[limit]
-context = 128_000
-output = 50_000
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.messages]
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic-compatible" }
+
+[cost.text.input]
+price = 0.25
+cache = { read = 0.025 }
+
+[cost.text.output]
+price = 0.75

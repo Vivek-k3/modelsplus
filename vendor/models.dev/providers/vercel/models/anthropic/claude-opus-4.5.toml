@@ -1,26 +1,27 @@
+# Mid-conversation (@ai-sdk/gateway, live 2026-10-19): a plain mid-conversation system message is hoisted into the leading system prompt (the next request misses the cache), so system_updates = false. Per-turn effort and tool changes reach Anthropic as providerOptions.anthropic.effort / toolChanges on a mid-conversation system message (https://ai-sdk.dev/providers/ai-sdk-providers/anthropic); true only where Anthropic accepted them and the cache was kept.
+schema = 2
+base_model = "anthropic/claude-opus-4-5"
 name = "Claude Opus 4.5"
-family = "claude-opus"
-release_date = "2025-11-24"
-last_updated = "2025-11-24"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-03-31"
-open_weights = false
 
-interleaved = true
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "low", "medium", "high"], budget = {} }
+cache = { explicit = true }
 
-[cost]
-input = 5.00
-output = 25.00
-cache_read = 0.5
-cache_write = 18.75
+[api.chat-completions]
+legacy_interleaved = true
 
-[limit]
-context = 200_000
-output = 64_000
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
 
-[modalities]
-input = ["text", "image", "pdf"]
-output = ["text"]
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 5
+cache = { read = 0.5, write = 6.25 }
+
+[cost.text.output]
+price = 25

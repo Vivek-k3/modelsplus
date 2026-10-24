@@ -1,24 +1,24 @@
-name = "MiniMax-M2.1"
-family = "minimax"
-release_date = "2025-12-23"
-last_updated = "2025-12-23"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+# Mid-conversation: Cortecs serves this model on POST https://api.cortecs.ai/v1/chat/completions; reasoning_effort and tools are per-request fields with no per-turn effort or tool-change mechanism (effort_updates = false, tools.updates = false). https://docs.cortecs.ai/api/chat-completions
+# Cache: not supported by the routed providers (amazon_ireland). https://docs.cortecs.ai/routing/prompt-caching
+schema = 2
+base_model = "minimax/MiniMax-M2.1"
+description = "MiniMax model for chat, coding, office work, and agentic tasks"
 
-[cost]
-input = 0.34
-output = 1.34
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+cache = false
+structured_output = true
 
 [limit]
 context = 196_000
 output = 196_000
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
 
-[interleaved]
-field = "reasoning_content"
+[cost.text.input]
+price = 0.359
+
+[cost.text.output]
+price = 1.435

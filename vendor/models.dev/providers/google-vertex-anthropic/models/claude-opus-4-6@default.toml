@@ -1,30 +1,31 @@
-name = "Claude Opus 4.6"
-family = "claude-opus"
-release_date = "2026-02-05"
-last_updated = "2026-02-05"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-05"
-open_weights = false
+# v2 capabilities and prices:
+# - https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/prompt-caching (5m and 1h TTLs; 1h writes cost 2x input)
+# - https://platform.claude.com/docs/en/build-with-claude/prompt-caching (4 breakpoints; minimum cacheable length on Google Cloud)
+# - https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/structured-outputs (Claude 4.5 and later)
+# - https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing
+# Regional and multi-region (us, eu) endpoints cost 10% more than the global endpoint.
+# Mid-conversation updates follow the per-model lists in Anthropic's docs, which cover Google Cloud:
+# - https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages (system messages; tool changes by reference)
+# - https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta (per-message effort)
+# No long-context premium on Vertex: the pricing page lists the same rates for <= 200K and > 200K input tokens
+# (https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing), and Anthropic includes the 1M window at standard pricing for Claude 4.6 and later
+# (https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing).
+schema = 2
+base_model = "anthropic/claude-opus-4-6"
 
-[cost]
-input = 5.00
-output = 25.00
-cache_read = 0.50
-cache_write = 6.25
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "medium", "high", "max"], budget = { min = 1_024 } }
+structured_output = true
+cache = { explicit = { ttl = ["5m", "1h"], max_breakpoints = 4, targets = ["tools", "system", "messages"], min_tokens = 4_096 } }
 
-[cost.context_over_200k]
-input = 10.00
-output = 37.50
-cache_read = 1.00
-cache_write = 12.50
+[cost.text.input]
+price = 5
+cache = { read = 0.5, write = { "5m" = 6.25, "1h" = 10 } }
 
-[limit]
-context = 1_000_000
-output = 128_000
+[cost.text.output]
+price = 25
 
-[modalities]
-input = ["text", "image", "pdf"]
-output = ["text"]
+[[cost.multipliers]]
+when = { not = { region = { equals = "global" } } }
+factor = 1.1

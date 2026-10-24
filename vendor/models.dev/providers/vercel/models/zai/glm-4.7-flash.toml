@@ -1,21 +1,28 @@
+# Mid-conversation (@ai-sdk/gateway, live 2026-10-19): routed to Amazon Bedrock Converse, which rejects system-role messages for this model (https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Message.html), so the gateway cannot keep them in place. No per-turn effort or tool-change mechanism reaches this model on this API.
+schema = 2
+base_model = "zhipuai/glm-4.7-flash"
 name = "GLM 4.7 Flash"
-family = "glm"
-attachment = false
-reasoning = true
-tool_call = true
-temperature = true
-release_date = "2026-03-13"
-last_updated = "2026-03-13"
-open_weights = false
 
-[cost]
-input = 0.07
-output = 0.39999999999999997
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "low", "medium", "high"] }
+cache = { implicit = true }
 
 [limit]
-context = 200_000
 output = 131_000
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
+
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 0.07
+
+[cost.text.output]
+price = 0.4

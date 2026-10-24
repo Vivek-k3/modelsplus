@@ -1,0 +1,18 @@
+schema = 2
+base_model = "alibaba/qwen3-32b"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 0.29
+
+[cost.text.output]
+price = 0.59

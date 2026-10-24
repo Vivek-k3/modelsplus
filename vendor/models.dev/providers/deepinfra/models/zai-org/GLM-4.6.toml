@@ -1,27 +1,33 @@
-# https://deepinfra.com/zai-org/GLM-4.6
-name = "GLM-4.6"
-family = "glm"
-release_date = "2025-09-30"
-last_updated = "2025-09-30"
-knowledge = "2025-04"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+# Lab identity: https://deepinfra.com/zai-org/GLM-4.6 (Hugging Face repo zai-org/GLM-4.6)
+# Toggle: reasoning.enabled = true|false (reasoning_effort = "none" also disables); https://docs.deepinfra.com/chat/reasoning
+# Mid-conversation (live probe, Chat Completions, 2026-10-21; notes/deepinfra-baseten-v2-2026-10-21/probe.ts):
+#   a system message after turn 1 is moved to the front or rejected (cached prefix lost) [cached/prompt tokens, control -> test: 12608/12624 -> 0/12637; 12608/12624 -> 0/12637]
+#   adding a tool between turns drops the cached prefix [cached/prompt tokens, control -> test: 12416/12445 -> 64/12505; 12416/12445 -> 64/12505]
+schema = 2
+base_model = "zhipuai/glm-4.6"
+description = "Flagship GLM model for hybrid reasoning, coding, and agentic engineering"
 
-[interleaved]
-field = "reasoning_content"
-
-[cost]
-input = 0.43
-output = 1.74
-cache_read = 0.08
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, toggle = true }
+structured_output = true
+cache = { implicit = true }
+prompt_cache_key = true
+service_tier = ["flex"]
 
 [limit]
-context = 204_800
-output = 131_072
+context = 202_752
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
+
+[cost.text.input]
+price = 0.5
+cache = { read = 0.1 }
+
+[cost.text.output]
+price = 2
+
+[[cost.multipliers]]
+when = { service_tier = { equals = "flex" } }
+factor = 0.8

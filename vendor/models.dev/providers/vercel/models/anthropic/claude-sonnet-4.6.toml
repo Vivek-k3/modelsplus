@@ -1,32 +1,38 @@
-name = "Claude Sonnet 4.6"
-family = "claude-sonnet"
-release_date = "2026-02-17"
-last_updated = "2026-02-17"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-08"
-open_weights = false
+# Mid-conversation (@ai-sdk/gateway, live 2026-10-19): a plain mid-conversation system message is hoisted into the leading system prompt (the next request misses the cache), so system_updates = false. Per-turn effort and tool changes reach Anthropic as providerOptions.anthropic.effort / toolChanges on a mid-conversation system message (https://ai-sdk.dev/providers/ai-sdk-providers/anthropic); true only where Anthropic accepted them and the cache was kept.
+schema = 2
+base_model = "anthropic/claude-sonnet-4-6"
 
-interleaved = true
-
-[cost]
-input = 3.00
-output = 15.00
-cache_read = 0.30
-cache_write = 3.75
-
-[cost.context_over_200k]
-input = 6.00
-output = 22.50
-cache_read = 0.60
-cache_write = 7.50
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "low", "medium", "high", "max"], budget = {} }
+cache = { explicit = true }
 
 [limit]
-context = 1_000_000
 output = 128_000
 
-[modalities]
-input = ["text", "image", "pdf"]
-output = ["text"]
+[api.chat-completions]
+legacy_interleaved = true
+
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
+
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 3
+cache = { read = 0.3, write = 3.75 }
+
+[[cost.text.input.overrides]]
+when = { context = { gt = 200_000 } }
+price = 6
+cache = { read = 0.6, write = 7.5 }
+
+[cost.text.output]
+price = 15
+
+[[cost.text.output.overrides]]
+when = { context = { gt = 200_000 } }
+price = 22.5

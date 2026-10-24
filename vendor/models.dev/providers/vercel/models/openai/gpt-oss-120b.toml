@@ -1,22 +1,29 @@
-name = "GPT OSS 120B"
-family = "gpt-oss"
-release_date = "2025-08-05"
-last_updated = "2025-08-05"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
-knowledge = "2024-10"
+# Mid-conversation (@ai-sdk/gateway, live 2026-10-19, default route): a mid-conversation system message is hoisted (the next request misses the cache). No per-turn effort or tool-change mechanism reaches this model on this API.
+schema = 2
+base_model = "openai/gpt-oss-120b"
 
-[cost]
-input = 0.10
-output = 0.50
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "medium", "high"] }
+structured_output = true
+cache = { implicit = true }
 
 [limit]
-context = 131_072
-output = 131072
+output = 131_072
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
+
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 0.1
+cache = { read = 0.1 }
+
+[cost.text.output]
+price = 0.5

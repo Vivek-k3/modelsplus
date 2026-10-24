@@ -1,0 +1,26 @@
+# Effort: reasoning_effort = low|high|max; GLM-5.3 always reasons.
+# HF exposes model/provider-specific effort; use the lab's supported levels.
+# https://docs.z.ai/guides/llm/glm-5.3
+# https://huggingface.co/docs/inference-providers/en/tasks/chat-completion
+schema = 2
+base_model = "zhipuai/glm-5.3"
+description = "Flagship GLM model for hybrid reasoning, coding, and agentic engineering"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "high", "max"] }
+structured_output = true
+
+[limit]
+context = 1_048_576
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 1.4
+
+[cost.text.output]
+price = 4.4

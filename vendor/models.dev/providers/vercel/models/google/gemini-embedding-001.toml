@@ -1,21 +1,11 @@
-name = "Gemini Embedding 001"
-family = "gemini-embedding"
-release_date = "2025-05-20"
-last_updated = "2025-05-20"
-attachment = false
-reasoning = false
-temperature = false
-tool_call = false
-open_weights = false
+# Synced from https://ai-gateway.vercel.sh/v1/models (type embedding)
+# https://vercel.com/docs/ai-gateway/modalities/embeddings
+schema = 2
+base_model = "google/gemini-embedding-001"
 
-[cost]
-input = 0.15
-output = 0
+[api.embeddings]
+base_url = "https://ai-gateway.vercel.sh/v4/ai"
+sdk = { opencodeai = "none" }
 
-[limit]
-context = 8192
-output = 1536
-
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 0.15

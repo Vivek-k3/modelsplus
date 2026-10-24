@@ -1,0 +1,21 @@
+# The model card documents low, high, and max reasoning effort levels.
+# https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813#chat-template
+schema = 2
+base_model = "deepseek/deepseek-v4-pro-0813"
+description = "Flagship DeepSeek model for coding, reasoning, and agentic work"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "high", "max"] }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 1.32
+
+[cost.text.output]
+price = 3.96

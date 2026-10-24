@@ -1,0 +1,23 @@
+# Modalities: the router catalog lists ["text","image"]; exact types are the lab's (alibaba/qwen3.5-9b).
+schema = 2
+base_model = "alibaba/qwen3.5-9b"
+
+[modalities]
+input = ["text", "image/bmp", "image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic"]
+output = ["text"]
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 0.17
+
+[cost.text.output]
+price = 0.25

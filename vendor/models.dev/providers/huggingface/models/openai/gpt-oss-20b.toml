@@ -1,0 +1,19 @@
+schema = 2
+base_model = "openai/gpt-oss-20b"
+description = "Open-weight GPT model for self-hosted reasoning and instruction-following workloads"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["low", "medium", "high"] }
+structured_output = true
+
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[cost.text.input]
+price = 0.1
+
+[cost.text.output]
+price = 0.5
