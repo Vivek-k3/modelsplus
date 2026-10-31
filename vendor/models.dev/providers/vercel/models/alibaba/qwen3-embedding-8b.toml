@@ -1,21 +1,11 @@
-name = "Qwen3 Embedding 8B"
-family = "qwen"
-release_date = "2025-06-05"
-last_updated = "2025-06-05"
-attachment = false
-reasoning = false
-temperature = false
-tool_call = false
-open_weights = false
+# Synced from https://ai-gateway.vercel.sh/v1/models (type embedding)
+# https://vercel.com/docs/ai-gateway/modalities/embeddings
+schema = 2
+base_model = "alibaba/qwen3-embedding-8b"
 
-[cost]
-input = 0.05
-output = 0
+[api.embeddings]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "none" }
 
-[limit]
-context = 32768
-output = 32768
-
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 0.01

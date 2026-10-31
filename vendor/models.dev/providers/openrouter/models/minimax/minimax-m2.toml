@@ -1,27 +1,25 @@
-name = "MiniMax M2"
-family = "minimax"
-attachment = false
-reasoning = true
-tool_call = true
-structured_output = true
-temperature = true
-release_date = "2025-10-23"
-last_updated = "2025-10-23"
-open_weights = true
+# Mid-conversation (Chat Completions, probed 2026-10-19): system_updates unset: live probes showed no cache signal, so placement is unknown
+# effort_updates = false: no per-turn effort control
+# tools.updates = false: Chat Completions rejects tool_addition/tool_removal for non-Claude-4.8+ models (live 400)
+schema = 2
+base_model = "minimax/MiniMax-M2"
 
-[interleaved]
-field = "reasoning_details"
+[capabilities]
+tools = { supported = true, choice = ["auto", "none", "required", "tool"] }
+reasoning = { supported = true }
+structured_output = false
 
-[cost]
-input = 0.28
-output = 1.15
-cache_read = 0.28
-cache_write = 1.15
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_details" }
 
-[limit]
-context = 196_600
-output = 118_000
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.messages]
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic-compatible" }
+
+[cost.text.input]
+price = 0.255
+
+[cost.text.output]
+price = 1.02

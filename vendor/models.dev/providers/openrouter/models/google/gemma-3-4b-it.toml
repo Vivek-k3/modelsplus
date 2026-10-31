@@ -1,22 +1,26 @@
-name = "Gemma 3 4B"
-family = "gemma"
-release_date = "2025-03-13"
-last_updated = "2025-03-13"
-attachment = true
-reasoning = false
-temperature = true
-knowledge = "2024-10"
-tool_call = false
-open_weights = true
+# Mid-conversation (Chat Completions, probed 2026-10-19): system_updates = false: hoisted on Parasail (live)
+# effort_updates = false: no per-turn effort control
+schema = 2
+base_model = "google/gemma-3-4b-it"
+description = "Open Gemma instruction model for efficient chat and self-hosted deployments"
 
-[cost]
-input = 0.01703
-output = 0.06815
+[capabilities]
+tools = { supported = false }
+structured_output = true
 
 [limit]
-context = 96_000
-output = 96_000
+output = 16_384
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[api.chat-completions]
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[api.messages]
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic-compatible" }
+
+[cost.text.input]
+price = 0.05
+
+[cost.text.output]
+price = 0.1
