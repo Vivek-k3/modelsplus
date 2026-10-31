@@ -1,22 +1,16 @@
-name = "GPT-4 Turbo"
-family = "gpt"
-release_date = "2023-11-06"
-last_updated = "2024-01-01"
-attachment = true
-reasoning = false
-tool_call = false
-structured_output = false
-open_weights = false
+# effort_updates = false: NanoGPT documents per-turn effort updates (configuration_update) only for GPT-6 Astra and Claude Fable 5.1 (https://docs.nano-gpt.com/api-reference/miscellaneous/inline-reasoning-effort)
+schema = 2
+base_model = "openai/gpt-4-turbo"
 
-[cost]
-input = 10.00
-output = 30.00
+[capabilities]
+tools = { supported = false }
+structured_output = false
 
 [limit]
-context = 128_000
 input = 128_000
-output = 4_096
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[cost.text.input]
+price = 10
+
+[cost.text.output]
+price = 30

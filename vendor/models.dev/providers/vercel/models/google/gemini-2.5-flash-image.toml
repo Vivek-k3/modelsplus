@@ -1,22 +1,16 @@
+schema = 2
+base_model = "google/gemini-2.5-flash-image"
 name = "Nano Banana (Gemini 2.5 Flash Image)"
-family = "gemini-flash"
-release_date = "2025-03-20"
-last_updated = "2025-03-20"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
-knowledge = "2025-01"
 
-[cost]
-input = 0.3
-output = 2.5
+[capabilities]
+cache = { implicit = true }
 
 [limit]
-context = 32768
-output = 32768
+output = 65_535
 
-[modalities]
-input = ["text"]
-output = ["text", "image"]
+[cost.text.input]
+price = 0.3
+cache = { read = 0.03 }
+
+[cost.text.output]
+price = 2.5
