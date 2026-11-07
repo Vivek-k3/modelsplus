@@ -1,22 +1,20 @@
+# effort_updates = false: NanoGPT documents per-turn effort updates (configuration_update) only for GPT-6 Astra and Claude Fable 5.1 (https://docs.nano-gpt.com/api-reference/miscellaneous/inline-reasoning-effort)
+schema = 2
+base_model = "openai/gpt-oss-120b"
 name = "GPT-OSS 120B TEE"
-family = "gpt-oss"
-release_date = "2025-08-05"
-last_updated = "2025-08-05"
-attachment = false
-reasoning = false
-tool_call = false
-structured_output = false
-open_weights = false
 
-[cost]
-input = 2.00
-output = 2.00
+[capabilities]
+tools = { supported = false }
+reasoning = { supported = false }
+structured_output = false
 
 [limit]
-context = 131_072
 input = 131_072
 output = 16_384
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 2
+cache = { read = 2 }
+
+[cost.text.output]
+price = 2

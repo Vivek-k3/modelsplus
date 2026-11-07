@@ -1,21 +1,15 @@
-name = "GPT OSS 20B"
-family = "gpt-oss"
-release_date = "2025-08-05"
-last_updated = "2025-08-05"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+# low|medium|high is documented at $.reasoning.effort on /v1/responses, not on
+# this provider's configured /v1 Chat Completions surface; no budget is listed.
+# https://lmstudio.ai/docs/developer/openai-compat/responses (accessed 2026-06-25)
+schema = 2
+base_model = "openai/gpt-oss-20b"
+description = "Open-weight GPT model for self-hosted reasoning and instruction-following workloads"
 
-[cost]
-input = 0
-output = 0
+[capabilities]
+reasoning = { supported = true, effort = ["low", "medium", "high"] }
 
-[limit]
-context = 131_072
-output = 32_768
+[cost.text.input]
+price = 0
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 0

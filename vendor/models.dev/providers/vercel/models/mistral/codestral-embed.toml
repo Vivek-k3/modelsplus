@@ -1,21 +1,15 @@
-name = "Codestral Embed"
-family = "codestral-embed"
-release_date = "2025-05-28"
-last_updated = "2025-05-28"
-attachment = false
-reasoning = false
-temperature = false
-tool_call = false
-open_weights = false
+# Synced from https://ai-gateway.vercel.sh/v1/models (type embedding)
+# https://vercel.com/docs/ai-gateway/modalities/embeddings
+schema = 2
+base_model = "mistral/codestral-embed-2505"
 
-[cost]
-input = 0.15
-output = 0
+[capabilities]
+cache = { implicit = true }
 
-[limit]
-context = 8192
-output = 1536
+[api.embeddings]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "none" }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 0.15
+cache = { read = 0.015 }
