@@ -1,21 +1,23 @@
-name = "Llama 3.3 70B Instruct FP8 Fast"
-family = "llama"
-release_date = "2025-04-03"
-last_updated = "2025-04-03"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
+# Cache: none. The model page lists no cached-input price (prefix caching is enabled per model:
+# https://developers.cloudflare.com/workers-ai/features/prompt-caching/), and live repeats read 0 cached tokens.
+# Mid-conversation: Live 2026-10-19 (/ai/v1/chat/completions, x-session-affinity, ~7k-token prefix): a late system message is accepted, adds a role header (+19 tokens) and is honored.
+# No prefix cache on this model, so effort and tool changes keep nothing.
+schema = 2
+base_model = "meta/llama-3.3-70b-instruct"
+name = "Llama 3.3 70B Instruct fp8 Fast"
 
-[cost]
-input = 0.29
-output = 2.25
+[capabilities]
+tools = { supported = true }
+cache = false
+structured_output = false
+system_updates = true
 
 [limit]
-context = 128000
-output = 16384
+context = 24_000
+output = 24_000
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 0.293
+
+[cost.text.output]
+price = 2.253

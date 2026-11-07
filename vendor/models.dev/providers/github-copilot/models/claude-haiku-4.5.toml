@@ -1,23 +1,32 @@
-name = "Claude Haiku 4.5"
-family = "claude-haiku"
-release_date = "2025-10-15"
-last_updated = "2025-10-15"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-02-28"
-open_weights = false
-
-[cost]
-input = 0
-output = 0
-
-[limit]
-context = 144_000
-output = 32_000
-input = 128_000
+# Input MIME types: capabilities.limits.vision.supported_media_types from authenticated GET https://api.githubcopilot.com/models (2026-10-21).
+# Mid-conversation flags are left out: Anthropic doesn't list this model for in-history system messages
+#   (https://platform.claude.com/docs/en/build-with-claude/working-with-messages), and tool_addition/tool_removal and
+#   per-message output_config need Anthropic betas that GitHub doesn't document for Copilot and VS Code's Copilot client
+#   doesn't send (extensions/copilot/src/platform/endpoint/node/chatEndpoint.ts:313-333 and messagesApi.ts:310 at
+#   https://github.com/microsoft/vscode/tree/bb29884).
+# APIs: GET /models supported_endpoints lists /v1/messages and /chat/completions for Claude models (authenticated, 2026-10-21; see provider.toml).
+schema = 2
+base_model = "anthropic/claude-haiku-4-5"
 
 [modalities]
-input = ["text", "image"]
+input = ["text", "image/jpeg", "image/png", "image/webp", "application/pdf"]
 output = ["text"]
+
+[capabilities]
+reasoning = { supported = true, budget = { min = 1_024, max = 32_000 } }
+
+[limit]
+input = 136_000
+
+[api.messages]
+base_url = "https://api.githubcopilot.com/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic" }
+
+[api.chat-completions]
+
+[cost.text.input]
+price = 1
+cache = { read = 0.1, write = 1.25 }
+
+[cost.text.output]
+price = 5
