@@ -1,23 +1,14 @@
-name = "GPT-4.1"
-family = "gpt"
-release_date = "2025-04-14"
-last_updated = "2025-04-14"
-attachment = true
-reasoning = false
-temperature = true
-tool_call = true
-knowledge = "2024-04"
-open_weights = false
-
-[cost]
-input = 2.00
-output = 8.00
-cache_read = 0.50
-
-[limit]
-context = 1_047_576
-output = 32_768
+# Source: GET https://go.fastrouter.ai/api/v1/models (public catalog, 2026-10-21); prices are USD per token there, per MTok here.
+schema = 2
+base_model = "openai/gpt-4.1"
 
 [modalities]
-input = ["text", "image"]
+input = ["text", "image/jpeg", "image/png", "image/gif", "image/webp"]
 output = ["text"]
+
+[cost.text.input]
+price = 2
+cache = { read = 0.5 }
+
+[cost.text.output]
+price = 8

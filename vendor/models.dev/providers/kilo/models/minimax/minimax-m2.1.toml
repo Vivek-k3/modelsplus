@@ -1,21 +1,15 @@
+schema = 2
+base_model = "minimax/MiniMax-M2.1"
 name = "MiniMax: MiniMax M2.1"
-release_date = "2025-12-23"
-last_updated = "2025-12-23"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+description = "MiniMax 2.1 is MiniMax's latest model, optimized specifically for robustness in coding, tool use, instruction following, and long-horizon planning."
 
-[cost]
-input = 0.27
-output = 0.95
-cache_read = 0.03
+[capabilities]
+reasoning = { supported = true, effort = ["none", "high"] }
+structured_output = true
 
-[limit]
-context = 196608
-output = 39322
+[cost.text.input]
+price = 0.3
+cache = { read = 0.03, write = 0.375 }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 1.2

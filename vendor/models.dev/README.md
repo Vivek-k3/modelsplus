@@ -22,7 +22,30 @@ You can access this data through an API.
 curl https://models.dev/api.json
 ```
 
+Specialized model types are omitted by default. Filter by one or more
+comma-separated model types, or use `all` for the complete catalog:
+
+```bash
+curl "https://models.dev/api.json?type=decision"
+curl "https://models.dev/api.json?type=all"
+```
+
+The currently supported model type is `decision`. The `type` parameter is also
+available on `models.json`, `catalog.json`, and `model-schema.json`.
+
 Use the **Model ID** field to do a lookup on any model; it's the identifier used by [AI SDK](https://ai-sdk.dev/).
+
+Provider-agnostic model metadata is available separately:
+
+```bash
+curl https://models.dev/models.json
+```
+
+Use this for facts about the model itself, independent of where it is served. If you need both provider endpoints and model-only metadata in one response:
+
+```bash
+curl https://models.dev/catalog.json
+```
 
 ### Logos
 
@@ -40,7 +63,56 @@ The data is stored in the repo as TOML files; organized by provider and model. T
 
 We need your help keeping the data up to date.
 
-### Adding a New Model
+### File Format
+
+Every model file uses the v2 format and starts with `schema = 2`; `bun validate` rejects files without it. The full file schema is in `packages/core/src/schema-v2.ts`, and `AGENTS.md` has the complete contributor rules. The filename (minus `.toml`) is the model ID; never add an `id` field.
+
+### Adding Model Metadata
+
+Model-only facts live in `models/<lab>/<model>.toml`. For example, `models/openai/gpt-5.toml` describes the underlying GPT-5 model, while `providers/openai/models/gpt-5.toml` describes how OpenAI serves it (reasoning controls, cache, pricing).
+
+Lab files hold only what is true on every host:
+
+```toml
+schema = 2
+name = "GPT-5"
+description = "Original GPT-5 workhorse for reasoning, coding, writing, and tool workflows"
+family = "gpt"
+open_weights = false
+knowledge = "2024-09-30"
+release_date = "2025-08-07"
+
+[modalities]
+input = ["text", "image/jpeg", "image/png", "image/gif", "image/webp"]
+output = ["text"]
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+temperature = false
+top_p = false
+top_k = false
+
+[limit]
+context = 400_000
+input = 272_000
+output = 128_000
+
+[[benchmarks]]
+name = "Benchmark Name"
+score = 72.5
+metric = "accuracy"
+source = "https://example.com/results"
+
+[[weights]]
+label = "Model weights"
+url = "https://huggingface.co/example/model"
+format = "safetensors"
+```
+
+Use MIME types for modalities where the lab documents them. `last_updated` is only needed when it differs from `release_date`. Reasoning controls, `structured_output`, cache, and service tiers are per host and go in provider files.
+
+### Adding a New Provider Model
 
 To add a new model, start by checking if the provider already exists in the `providers/` directory. If not, then:
 
@@ -65,7 +137,7 @@ If the provider isn't already in `providers/`:
    api = "https://api.example.com/v1" # Required with openai-compatible
    ```
 
-#### 2. Add a Logo (optional)
+#### 2. Add a Logo (required for new providers)
 
 To add a logo for the provider:
 
@@ -82,43 +154,44 @@ Example SVG structure:
 
 #### 3. Add a Model Definition
 
-Create a new TOML file in the provider's `models/` directory where the filename is the model ID.
+Create a new TOML file in the provider's `models/` directory where the filename is the model ID. If the model ID contains `/`, use subfolders: for `openai/gpt-5`, create `openai/gpt-5.toml`.
 
-If the model ID contains `/`, use subfolders. For example, for the model ID `openai/gpt-5`, create a folder `openai/` and place a file named `gpt-5.toml` inside it.
+If the provider didn't create the model, point `base_model` at the lab file (add the lab file first if it's missing) and write only what differs on this host:
 
 ```toml
-name = "Model Display Name"
-attachment = true           # or false - supports file attachments
-reasoning = false           # or true - supports reasoning / chain-of-thought
-tool_call = true            # or false - supports tool calling
-structured_output = true    # or false - supports a dedicated structured output feature
-temperature = true          # or false - supports temperature control
-knowledge = "2024-04"       # Knowledge-cutoff date
-release_date = "2025-02-19" # First public release date
-last_updated = "2025-02-19" # Most recent update date
-open_weights = true         # or false  - model’s trained weights are publicly available
+schema = 2
+base_model = "openai/gpt-5"
 
-[cost]
-input = 3.00                # Cost per million input tokens (USD)
-output = 15.00              # Cost per million output tokens (USD)
-reasoning = 15.00           # Cost per million reasoning tokens (USD)
-cache_read = 0.30           # Cost per million cached read tokens (USD)
-cache_write = 3.75          # Cost per million cached write tokens (USD)
-input_audio = 1.00          # Cost per million audio input tokens (USD)
-output_audio = 10.00        # Cost per million audio output tokens (USD)
+[capabilities]
+reasoning = { supported = true, effort = ["minimal", "low", "medium", "high"] }
+structured_output = true
+cache = { implicit = { min_tokens = 1_024 } }
+
+[cost.text.input]
+price = 1.25              # USD per million input tokens
+cache = { read = 0.125 }  # USD per million cached input tokens
+
+[[cost.text.input.overrides]]
+when = { context = { gt = 272_000 } } # long-context pricing
+price = 2.5
+
+[cost.text.output]
+price = 10                # USD per million output tokens
 
 [limit]
-context = 400_000           # Maximum context window (tokens)
-input = 272_000             # Maximum input tokens
-output = 8_192              # Maximum output tokens
-
-[modalities]
-input = ["text", "image"]   # Supported input modalities
-output = ["text"]           # Supported output modalities
-
-[interleaved]
-field = "reasoning_content" # Name of the interleaved field "reasoning_content" or "reasoning_details"
+context = 200_000         # optional: only when this host serves a smaller window
 ```
+
+Rules:
+
+- `base_model` must point to a file in `models/` using `<lab>/<model-id>`.
+- **Override-only:** do not restate the base's `name`, `description`, dates, `modalities`, `limit`, etc. unless this host actually differs.
+- Plain tables (`[limit]`, `[modalities]`, `[capabilities]`, inline tables) deep-merge; arrays and primitives replace.
+- `base_model_omit` removes inherited fields after merging, e.g. `base_model_omit = ["limit.input"]`.
+- Lifecycle goes in `status` (`alpha`, `beta`, `deprecated`). A model served through a different SDK, base URL, or reasoning field gets an `[api.<protocol>]` table, e.g. `[api.chat-completions] compatibility = { reasoning_field = "reasoning_content" }`.
+- A full definition without `base_model` is only for first-party labs and host-unique models. It has every lab field plus the provider fields.
+
+**Reasoning controls (short):** classify first-party lab vs multi-model relay (not by npm). Copy the underlying model’s controls from the lab's provider entry and same-surface peers: often `effort = ["low", "medium", "high"]` on GPT-style relays, but DeepSeek V4 is `toggle = true` with `effort = ["low", "high", "max"]`, etc. Don't drop controls from uncertainty on relays. Full policy: `AGENTS.md`.
 
 #### 4. Submit a Pull Request
 
@@ -129,28 +202,31 @@ field = "reasoning_content" # Name of the interleaved field "reasoning_content" 
 
 ### Validation
 
-There's a GitHub Action that will automatically validate your submission against our schema to ensure:
+Run these before opening a PR (a GitHub Action runs them too):
 
-- All required fields are present
-- Data types are correct
-- Values are within acceptable ranges
-- TOML syntax is valid
+```bash
+bun validate      # schema, required fields, TOML syntax; rejects non-v2 model files
+bun run v1:check  # lists any change to the published v1 API output
+```
 
-### Schema Reference
+### API Reference
 
-Models must conform to the following schema, as defined in `app/schemas.ts`.
+These are the fields of each model in the generated `api.json` (the v1 API). They are API response fields, not file fields: they are derived from the v2 files above (for example `attachment` comes from non-text input modalities, `reasoning_options` from `capabilities.reasoning`, and `cost.input` from `cost.text.input.price`).
 
-**Provider Schema:**
+Generated provider models that use `base_model` expose its canonical lab/model ID as `canonical_model_id` in `api.json` and `catalog.json`. Consumers can use this field to attribute a provider-specific model ID to its originating lab without guessing from the model name.
+
+**Provider:**
 
 - `name`: String - Display name of the provider
 - `npm`: String - AI SDK Package name
 - `env`: String[] - Environment variable keys used for auth
 - `doc`: String - Link to the provider's documentation
-- `api` _(optional)_: String - OpenAI-compatible API endpoint. Required only when using `@ai-sdk/openai-compatible` as the npm package
+- `api` _(optional)_: String - OpenAI-compatible API endpoint
 
-**Model Schema:**
+**Model:**
 
 - `name`: String — Display name of the model
+- `type` _(optional)_: String — Specialized model behavior; currently supports `decision`
 - `attachment`: Boolean — Supports file attachments
 - `reasoning`: Boolean — Supports reasoning / chain-of-thought
 - `tool_call`: Boolean - Supports tool calling
@@ -160,7 +236,7 @@ Models must conform to the following schema, as defined in `app/schemas.ts`.
 - `release_date`: String — First public release date in `YYYY-MM` or `YYYY-MM-DD`
 - `last_updated`: String — Most recent update date in `YYYY-MM` or `YYYY-MM-DD`
 - `open_weights`: Boolean - Indicate the model's trained weights are publicly available
-- `interleaved` _(optional)_: Boolean or Object — Supports interleaved reasoning. Use `true` for general support or an object with `field` to specify the format
+- `interleaved` _(optional)_: Boolean or Object — Supports interleaved reasoning: `true`, or an object whose `field` names the format
 - `interleaved.field`: String — Name of the interleaved field (`"reasoning_content"` or `"reasoning_details"`)
 - `cost.input`: Number — Cost per million input tokens (USD)
 - `cost.output`: Number — Cost per million output tokens (USD)

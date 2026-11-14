@@ -1,20 +1,12 @@
-name = "MiniMax-M2.1"
-release_date = "2025-12-19"
-last_updated = "2025-12-19"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = true
-open_weights = false
+# 302.AI API reports context_length = 204,800 for MiniMax-M2.1 (reconciled from prior 1M override)
+schema = 2
+base_model = "minimax/MiniMax-M2.1"
 
-[cost]
-input = 0.300
-output = 1.200
+[capabilities]
+reasoning = { supported = true }
 
-[limit]
-context = 1_000_000
-output = 131_072
+[cost.text.input]
+price = 0.3
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 1.2

@@ -1,23 +1,18 @@
+# Sources (accessed 2026-08-10):
+# Model overview: https://docs.privatemode.ai/models/overview/
+# Pricing (EUR per audio minute): https://docs.privatemode.ai/pricing/
+# Upstream: https://huggingface.co/openai/whisper-large-v3
+# Cost: EUR 0.014/minute converted at 1 EUR = 1.1555 USD (Frankfurter 2026-08-10).
+# cost.input is USD per audio minute (STT; not token-based).
+schema = 2
+base_model = "openai/whisper-large-v3"
 name = "Whisper large-v3"
-family = "whisper"
-attachment = true
-reasoning = false
-structured_output = false
-temperature = true
-tool_call = false
-release_date = "2023-09-01"
-last_updated = "2023-09-01"
-knowledge = "2023-09"
-open_weights = true
 
-[cost]
-input = 0.00
-output = 0.00
+[api.transcriptions]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/protocols/openai-transcription" }
 
-[limit]
-context = 0
-output = 4096
+[cost.text.input]
+price = 0.01618
 
-[modalities]
-input = ["audio"]
-output = ["text"]
+[cost.text.output]
+price = 0

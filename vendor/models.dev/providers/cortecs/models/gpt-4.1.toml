@@ -1,23 +1,17 @@
-name = "GPT 4.1"
-family = "gpt"
-release_date = "2025-04-14"
-last_updated = "2025-04-14"
-knowledge = "2024-06"
-attachment = false
-reasoning = false
-tool_call = true
-temperature = true
-open_weights = false
+# Mid-conversation: Cortecs serves this model on POST https://api.cortecs.ai/v1/chat/completions; reasoning_effort and tools are per-request fields with no per-turn effort or tool-change mechanism (effort_updates = false, tools.updates = false). https://docs.cortecs.ai/api/chat-completions
+# Cache: automatic prefix caching on every routed provider (azure_sc, azure_spc). https://docs.cortecs.ai/routing/prompt-caching
+schema = 2
+base_model = "openai/gpt-4.1"
+description = "GPT model for general reasoning, writing, coding, and tool-assisted tasks"
 
+[capabilities]
+tools = { supported = true }
+cache = { implicit = true }
+structured_output = false
 
-[cost]
-input = 2.354
-output = 9.417
+[cost.text.input]
+price = 2.192
+cache = { read = 0.546 }
 
-[limit]
-context = 1_047_576
-output = 32_768
-
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[cost.text.output]
+price = 8.769
