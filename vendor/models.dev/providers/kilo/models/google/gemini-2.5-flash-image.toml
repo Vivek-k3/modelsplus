@@ -1,20 +1,24 @@
-name = "Google: Nano Banana (Gemini 2.5 Flash Image)"
-release_date = "2025-10-08"
-last_updated = "2026-03-15"
-attachment = true
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
-
-[cost]
-input = 0.3
-output = 2.5
-
-[limit]
-context = 32768
-output = 32768
+schema = 2
+base_model = "google/gemini-2.5-flash-image"
+description = "Image model for prompt-driven generation, editing, and visual design workflows"
 
 [modalities]
-input = ["image", "text"]
-output = ["image", "text"]
+input = ["image/png", "image/jpeg", "image/webp", "image/heic", "image/heif", "text", "application/pdf"]
+output = ["text", "image/png", "image/jpeg"]
+
+[capabilities]
+structured_output = true
+
+[limit]
+output = 8_192
+
+[cost.text.input]
+price = 0.3
+cache = { read = 0.03, write = 0.083333 }
+
+[cost.text.output]
+price = 2.5
+reasoning = 2.5
+
+[cost.web_search]
+price = 14

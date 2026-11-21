@@ -1,20 +1,33 @@
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+schema = 2
 name = "Perplexity: Sonar Deep Research"
-release_date = "2025-01-27"
-last_updated = "2025-01-27"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = false
+description = "Sonar search model for current answers, retrieval, and citation-backed chat"
+family = "sonar-deep-research"
 open_weights = false
-
-[cost]
-input = 2.0
-output = 8.0
-
-[limit]
-context = 128000
-output = 25600
+release_date = "2025-03-07"
 
 [modalities]
 input = ["text"]
 output = ["text"]
+
+[capabilities]
+tools = { supported = false }
+reasoning = { supported = true, effort = ["high"] }
+structured_output = false
+temperature = true
+
+[limit]
+context = 128_000
+output = 115_200
+
+[cost.text.input]
+price = 2
+
+[cost.text.output]
+price = 8
+reasoning = 3
+
+[cost.web_search]
+price = 5

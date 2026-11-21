@@ -1,28 +1,31 @@
-# https://deepinfra.com/MiniMaxAI/MiniMax-M2.5
+# Lab identity: https://deepinfra.com/MiniMaxAI/MiniMax-M2.5 (Hugging Face repo MiniMaxAI/MiniMax-M2.5)
+# knowledge: the host's value, unsourced; the lab's model card and docs state no cutoff. Kept so v1 doesn't lose it.
+schema = 2
+base_model = "minimax/MiniMax-M2.5"
 name = "MiniMax M2.5"
-family = "minimax"
-release_date = "2026-02-12"
-last_updated = "2026-02-12"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
+description = "MiniMax model for chat, coding, office work, and agentic tasks"
 knowledge = "2025-06"
-open_weights = true
+status = "deprecated"
 
-[cost]
-input = 0.27
-output = 0.95
-cache_read = 0.03
-cache_write = 0.375
+[capabilities]
+reasoning = { supported = true }
+cache = { implicit = true }
+prompt_cache_key = true
+service_tier = ["priority"]
 
 [limit]
-context = 204_800
-output = 131_072
+context = 196_608
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
 
-[interleaved]
-field = "reasoning_content"
+[cost.text.input]
+price = 0.15
+cache = { read = 0.03 }
+
+[cost.text.output]
+price = 1.15
+
+[[cost.multipliers]]
+when = { service_tier = { equals = "priority" } }
+factor = 1.5

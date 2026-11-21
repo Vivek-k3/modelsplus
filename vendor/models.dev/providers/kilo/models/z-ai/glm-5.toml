@@ -1,20 +1,21 @@
-name = "Z.ai: GLM 5"
-release_date = "2026-02-12"
-last_updated = "2026-03-15"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+schema = 2
+base_model = "zhipuai/glm-5"
+description = "Flagship GLM model for hybrid reasoning, coding, and agentic engineering"
 
-[cost]
-input = 0.72
-output = 2.3
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "high"] }
+structured_output = true
 
 [limit]
-context = 202752
-output = 131072
+context = 202_752
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.input]
+price = 1
+cache = { read = 0.2 }
+
+[cost.text.output]
+price = 3.2
