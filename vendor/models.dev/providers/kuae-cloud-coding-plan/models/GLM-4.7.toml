@@ -1,27 +1,19 @@
-name = "GLM-4.7"
-family = "glm"
-release_date = "2025-12-22"
-last_updated = "2025-12-22"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-knowledge = "2025-04"
-open_weights = true
+# POST /v1/chat/completions shows $.thinking.type = "enabled" only; it does not
+# document a disable value for the same model ID, so a full toggle is unproven.
+# https://docs.mthreads.com/kuaecloud/kuaecloud-doc-online/coding_plan/ (accessed 2026-06-25)
+schema = 2
+base_model = "zhipuai/glm-4.7"
+description = "Flagship GLM model for hybrid reasoning, coding, and agentic engineering"
 
-[interleaved]
-field = "reasoning_content"
+[capabilities]
+reasoning = { supported = true, toggle = true }
 
-[cost]
-input = 0
-output = 0
-cache_read = 0
-cache_write = 0
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
 
-[limit]
-context = 204800
-output = 131072
+[cost.text.input]
+price = 0
+cache = { read = 0, write = 0 }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 0

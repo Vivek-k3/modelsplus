@@ -1,20 +1,19 @@
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+# tools.supported = false: Kilo's catalog lists no tools/tool_choice in supported_parameters for this model (https://api.kilo.ai/api/gateway/models, checked 2026-10-20).
+schema = 2
+base_model = "nousresearch/hermes-4-405b"
 name = "Nous: Hermes 4 405B"
-release_date = "2025-08-25"
-last_updated = "2025-08-25"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = false
-open_weights = true
 
-[cost]
-input = 1.0
-output = 3.0
+[capabilities]
+tools = { supported = false }
+reasoning = { supported = true, effort = ["none", "high"] }
+structured_output = true
 
-[limit]
-context = 131072
-output = 26215
+[cost.text.input]
+price = 1
+cache = { read = 0.2 }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 3

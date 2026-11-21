@@ -1,20 +1,21 @@
-name = "ByteDance Seed: Seed-2.0-Mini"
-release_date = "2026-02-27"
-last_updated = "2026-03-15"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+schema = 2
+base_model = "bytedance-seed/seed-2.0-mini"
+description = "Multimodal reasoning model for visual analysis, planning, and tool use"
 
-[cost]
-input = 0.1
-output = 0.4
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["none", "minimal", "low", "medium", "high"] }
+structured_output = true
 
 [limit]
-context = 262144
-output = 131072
+context = 262_144
+output = 131_072
 
-[modalities]
-input = ["image", "text", "video"]
-output = ["text"]
+[cost.text.input]
+price = 0.1
+
+[cost.text.output]
+price = 0.4

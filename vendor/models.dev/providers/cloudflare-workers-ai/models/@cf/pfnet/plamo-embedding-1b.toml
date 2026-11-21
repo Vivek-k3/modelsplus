@@ -1,21 +1,17 @@
-name = "PLaMo Embedding 1B"
-family = "plamo"
-release_date = "2025-09-25"
-last_updated = "2025-09-25"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
+# https://developers.cloudflare.com/workers-ai/models/plamo-embedding-1b/ (task "Text Embeddings"; no input limit
+#   listed, so the lab's 4,096 is kept)
+# Price: https://developers.cloudflare.com/workers-ai/platform/pricing/ and the model page's unit pricing (accessed 2026-11-08).
+# API: POST /accounts/{ACCOUNT_ID}/ai/v1/embeddings returns OpenAI-shaped vectors (live check 2026-11-08); the native
+#   /ai/run/<model> route also works. Workers AI search's OpenRouter format omits embeddings, so the sync never touches this file.
+schema = 2
+v2_only = true
+base_model = "pfnet/plamo-embedding-1b"
 
-[cost]
-input = 0.019
-output = 0
+[api.embeddings]
+sdk = { opencodeai = "@opencode/ai/providers/openai-compatible/embeddings" }
 
-[limit]
-context = 128000
-output = 16384
+[cost.text.input]
+price = 0.0186
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 0

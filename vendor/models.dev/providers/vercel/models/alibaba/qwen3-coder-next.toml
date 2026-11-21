@@ -1,21 +1,29 @@
-name = "Qwen3 Coder Next"
-family = "qwen"
-attachment = false
-reasoning = true
-tool_call = true
-temperature = true
-release_date = "2025-07-22"
-last_updated = "2026-02-19"
-open_weights = false
+# Mid-conversation (@ai-sdk/gateway, live 2026-10-19): routed to Amazon Bedrock Converse, which rejects system-role messages for this model (https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Message.html), so the gateway cannot keep them in place. No per-turn effort or tool-change mechanism reaches this model on this API.
+schema = 2
+base_model = "alibaba/qwen3-coder-next"
+description = "Qwen coding model for software agents, repository edits, and code reasoning"
 
-[cost]
-input = 0.5
-output = 1.2
+[capabilities]
+tools = { supported = true, choice = ["auto", "none", "required", "tool"] }
+reasoning = { supported = true }
+structured_output = true
 
 [limit]
 context = 256_000
 output = 256_000
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[api.chat-completions]
+
+[api.responses]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/open-responses", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/responses" }
+
+[api.messages]
+base_url = "https://ai-gateway.vercel.sh/v1"
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/vercel-ai-gateway/messages" }
+
+[cost.text.input]
+price = 0.5
+
+[cost.text.output]
+price = 1.2
