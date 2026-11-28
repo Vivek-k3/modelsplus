@@ -1,22 +1,20 @@
-name = "o4-mini"
-family = "o-mini"
-release_date = "2025-04-16"
-last_updated = "2025-04-16"
-attachment = true
-reasoning = true
-temperature = false
-knowledge = "2024-05"
-tool_call = true
-open_weights = false
+# Source: https://routellm.abacus.ai/v1/models
+# RouteLLM API does not report thinking: true for this ID.
+# RouteLLM input_modalities: ['text', 'image']
+# RouteLLM output_modalities: ['text']
+# RouteLLM context_length: 200000
+# RouteLLM max_completion_tokens: 100000
+# RouteLLM input_token_rate: 0.0000011
+# RouteLLM output_token_rate: 0.0000044
+schema = 2
+base_model = "openai/o4-mini"
 
-[cost]
-input = 1.10
-output = 4.40
+[capabilities]
+reasoning = { supported = true }
+structured_output = true
 
-[limit]
-context = 200_000
-output = 100_000
+[cost.text.input]
+price = 1.1
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[cost.text.output]
+price = 4.4

@@ -1,0 +1,18 @@
+# Live 2026-10-21: POST https://ai.api.nvidia.com/v1/retrieval/nvidia/llama-nemotron-rerank-vl-1b-v2/reranking
+# returns rankings. Context 10,240 (lab) matches NVIDIA's card
+# (https://build.nvidia.com/nvidia/llama-nemotron-rerank-vl-1b-v2).
+# NVIDIA API: HTTP 410 Gone, end of life 2026-11-16T09:00:00Z (probed 2026-11-25, POST https://ai.api.nvidia.com/v1/retrieval/nvidia/llama-nemotron-rerank-vl-1b-v2/reranking)
+schema = 2
+base_model = "nvidia/llama-nemotron-rerank-vl-1b-v2"
+status = "deprecated"
+name = "llama-nemotron-rerank-vl-1b-v2"
+
+[api.rerank]
+base_url = "https://ai.api.nvidia.com/v1/retrieval/nvidia/llama-nemotron-rerank-vl-1b-v2/reranking"
+sdk = { aisdk = "none", opencodeai = "none" }
+
+[cost.text.input]
+price = 0
+
+[cost.text.output]
+price = 0

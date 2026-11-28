@@ -1,24 +1,19 @@
-# https://deepinfra.com/openai/gpt-oss-120b
+# Lab identity: https://deepinfra.com/openai/gpt-oss-120b (Hugging Face repo openai/gpt-oss-120b)
+# Output cap: max_output_tokens = 131072 on https://api.deepinfra.com/models/openai/gpt-oss-120b (checked 2026-11-24),
+#   the lab's 131,072, so it's inherited.
+schema = 2
+base_model = "openai/gpt-oss-120b"
+description = "Open-weight GPT model for self-hosted reasoning and instruction-following workloads"
 
-name = "GPT OSS 120B"
-family = "gpt-oss"
-release_date = "2025-08-05"
-last_updated = "2025-08-05"
-attachment = false
-reasoning = true
-temperature = true
-tool_call = true
-open_weights = true
+[capabilities]
+reasoning = { supported = true, effort = ["low", "medium", "high"] }
+structured_output = true
+cache = { implicit = true }
+prompt_cache_key = true
 
-[cost]
-input = 0.05
-output = 0.24
+[cost.text.input]
+price = 0.037
+cache = { read = 0.0185 }
 
-[limit]
-context = 131_072
-# https://deepinfra.com/docs/advanced/max_tokens_limit
-output = 16_384
-
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 0.17

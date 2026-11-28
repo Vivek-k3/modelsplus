@@ -1,0 +1,49 @@
+# Version-tracking Standard-path router for the current Kimi flagship, now Kimi K3.1 Pro.
+# Short ID `kimi-latest` expands to accounts/fireworks/routers/kimi-latest.
+# https://docs.fireworks.ai/ecosystem/fireconnect/models
+# Target: GET https://api.fireworks.ai/v1/serverless/models (2026-11-24) lists accounts/fireworks/routers/kimi-latest in the
+#   `aliases` of accounts/fireworks/models/kimi-k3p1-pro (it pointed at kimi-k3 before).
+# Pricing matches Kimi K3.1 Pro Standard / Priority (USD per 1M, input / cached input / output):
+#   Standard $2.00 / $0.20 / $10.00, Priority $3.00 / $0.30 / $15.00. https://docs.fireworks.ai/serverless/pricing
+# Controls, modalities and APIs mirror accounts/fireworks/models/kimi-k3p1-pro, which has the live probes:
+# Toggle: thinking.type = enabled|disabled
+# Effort: reasoning_effort = low|medium|high|max
+# https://docs.fireworks.ai/guides/reasoning
+# The mid-conversation tests recorded here before were run while this alias served Kimi K3, so system_updates is left out
+#   until it's re-tested on K3.1 Pro.
+# No budget: Fireworks accepts thinking.budget_tokens >= 1024 but doesn't cap reasoning with it (kimi-k3p1-pro probes, 2026-11-05).
+schema = 2
+base_model = "moonshotai/kimi-k3.1-pro"
+name = "Kimi Latest (Kimi K3.1 Pro)"
+
+[modalities]
+input = ["text", "image/jpeg", "image/png", "image/gif", "image/webp", "image/bmp"]
+output = ["text"]
+
+[capabilities]
+reasoning = { supported = true, toggle = true, effort = ["low", "medium", "high", "max"] }
+structured_output = true
+cache = { implicit = true }
+
+[api.chat-completions]
+compatibility = { reasoning_field = "reasoning_content" }
+
+[api.responses]
+sdk = { aisdk = "@ai-sdk/openai", opencodeai = "@opencode/ai/providers/openai-compatible/responses" }
+
+[api.messages]
+sdk = { aisdk = "@ai-sdk/anthropic", opencodeai = "@opencode/ai/providers/anthropic-compatible" }
+
+[cost.text.input]
+price = 2
+cache = { read = 0.2 }
+
+[cost.text.output]
+price = 10
+
+[[cost.multipliers]]
+when = { service_tier = { equals = "priority" } }
+factor = 1.5
+
+[experimental.modes.priority]
+body = { service_tier = "priority" }

@@ -1,24 +1,38 @@
+# Modalities: xAI image inputs are jpg/jpeg or png: https://docs.x.ai/docs/guides/image-understanding
+# APIs: Chat Completions and Responses (POST https://<resource>.services.ai.azure.com/openai/v1/chat/completions and /openai/v1/responses), per the API Type column of "Models available in Foundry" in https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-grok (accessed 2026-11-25). Chat Completions stays first so v1 keeps its provider.
+# Mid-conversation flags: left out. Azure's Grok guide documents no way to change tools or effort mid-conversation and no mid-conversation system messages on either API, so none of the three flags is marked.
+# Limits: input 128,000 and output 128,000 tokens per the SpaceXAI table in https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure?pivots=azure-direct-others (accessed 2026-11-25).
+#   Azure lists output separately for each Grok row (grok-4.3: 8,192; grok-4.6: 128,000 max with a 200,000 window), so 128,000 is its documented cap here.
+#   The lab's 30,000 (models/xai/grok-4.1-fast-reasoning.toml) isn't in its cited xAI or Vertex pages; the non-reasoning lab takes it from a gateway listing.
+schema = 2
 name = "Grok 4.1 Fast (Reasoning)"
+description = "Fast Grok model for responsive chat, reasoning, and tool-assisted work"
 family = "grok"
-release_date = "2025-06-27"
-last_updated = "2025-06-27"
-attachment = true
-reasoning = true
-temperature = true
-tool_call = true
 open_weights = false
-status = "beta"
+release_date = "2025-06-27"
 
-[cost]
-input = 0.20
-output = 0.50
-cache_read = 0.05
+[modalities]
+input = ["text", "image/jpeg", "image/png"]
+output = ["text"]
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true }
+temperature = true
 
 [limit]
 context = 128_000
 input = 128_000
-output = 8_192
+output = 128_000
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[api.chat-completions]
+sdk = { opencodeai = "@opencode/ai/providers/azure/chat" }
+
+[api.responses]
+
+[cost.text.input]
+price = 0.2
+cache = { read = 0.05 }
+
+[cost.text.output]
+price = 0.5

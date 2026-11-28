@@ -1,20 +1,16 @@
+# Mid-conversation (Kilo Chat Completions; https://kilo.ai/docs/gateway/api-reference): effort_updates = false and tools.updates = false:
+# system messages take string content only, with no per-turn effort or tool addition/removal mechanism.
+# system_updates unset: Kilo routes each request to Vercel AI Gateway, OpenRouter or a direct upstream and doesn't document where a mid-conversation system message ends up.
+schema = 2
+base_model = "thedrummer/skyfall-36b-v2"
 name = "TheDrummer: Skyfall 36B V2"
-release_date = "2025-03-11"
-last_updated = "2026-03-15"
-attachment = false
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = true
 
-[cost]
-input = 0.55
-output = 0.8
+[capabilities]
+structured_output = true
 
-[limit]
-context = 32768
-output = 32768
+[cost.text.input]
+price = 0.55
+cache = { read = 0.25 }
 
-[modalities]
-input = ["text"]
-output = ["text"]
+[cost.text.output]
+price = 0.8

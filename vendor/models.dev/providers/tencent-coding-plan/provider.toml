@@ -1,5 +1,14 @@
 name = "Tencent Coding Plan (China)"
 env = ["TENCENT_CODING_PLAN_API_KEY"]
 npm = "@ai-sdk/openai-compatible"
+opencodeai = "@opencode/ai/providers/openai-compatible"
+# Reasoning HTTP format (accessed 2026-06-25):
+# OpenAI plan endpoint: POST /coding/v3/chat/completions. Top-level
+# `thinking.type` is enabled or disabled; reasoning is returned at
+# `choices[].message.reasoning_content` or streamed `choices[].delta.reasoning_content`.
+# The plan serves only Auto (tc-code-latest) since 2026-10-15.
+# Sources:
+# https://cloud.tencent.com/document/product/1823/130092
+# https://cloud.tencent.com/document/product/1823/131208
 doc = "https://cloud.tencent.com/document/product/1772/128947"
 api = "https://api.lkeap.cloud.tencent.com/coding/v3"

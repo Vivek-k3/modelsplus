@@ -1,21 +1,14 @@
+# 302.AI prices one flat output rate for this image model: https://302.ai/product/detail/google-gemini-2-5-flash-image
+schema = 2
+base_model = "google/gemini-2.5-flash-image"
 name = "gemini-2.5-flash-image"
-release_date = "2025-10-08"
-last_updated = "2025-10-08"
-attachment = true
-reasoning = false
-temperature = true
-tool_call = false
-open_weights = false
 knowledge = "2025-01"
 
-[cost]
-input = 0.300
-output = 30.000
+[cost.text.input]
+price = 0.3
 
-[limit]
-context = 32_768
-output = 32_768
+[cost.text.output]
+price = 30
 
-[modalities]
-input = ["text", "image"]
-output = ["text"]
+[cost.image.output]
+price = 30

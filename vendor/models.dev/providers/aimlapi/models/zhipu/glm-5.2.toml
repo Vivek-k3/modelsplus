@@ -1,0 +1,15 @@
+schema = 2
+base_model = "zhipuai/glm-5.2"
+name = "GLM 5.2"
+
+[capabilities]
+reasoning = { supported = true, effort = ["high"] }
+structured_output = true
+tools = { supported = true }
+
+[cost.text.input]
+price = 0.31
+cache = { read = 0.075 }
+
+[cost.text.output]
+price = 2.4
