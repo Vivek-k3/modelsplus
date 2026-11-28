@@ -1,0 +1,14 @@
+schema = 2
+base_model = "zhipuai/glm-5.3"
+name = "GLM-5.3 (CanopyWave)"
+
+[capabilities]
+reasoning = { supported = true, effort = ["none", "low", "medium", "high", "xhigh", "max"] }
+structured_output = false
+
+[cost.text.input]
+price = 0.84
+cache = { read = 0.156 }
+
+[cost.text.output]
+price = 2.64

@@ -1,0 +1,14 @@
+# Reasoning HTTP format (accessed 2026-11-17):
+# POST https://api.sarvam.ai/v2/chat/completions takes top-level
+# reasoning_effort per model and returns reasoning_content. Each model's
+# accepted levels are in its own file; JSON null, not the string "null",
+# disables reasoning where the model has a toggle.
+# Sources:
+# https://docs.sarvam.ai/api/token-factory/chat-completions
+# https://docs.sarvam.ai/api/token-factory/how-to/adjust-the-models-thinking-level
+name = "Sarvam AI"
+env = ["SARVAM_API_KEY"]
+npm = "@ai-sdk/openai-compatible"
+opencodeai = "@opencode/ai/providers/openai-compatible"
+doc = "https://docs.sarvam.ai/api/token-factory/models"
+api = "https://api.sarvam.ai/v2"

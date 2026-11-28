@@ -1,0 +1,18 @@
+schema = 2
+base_model = "meta/muse-wonder-1.0"
+
+[capabilities]
+tools = { supported = true }
+reasoning = { supported = true, effort = ["minimal", "low", "medium", "high", "xhigh", "max"] }
+structured_output = true
+
+[limit]
+input = 1_048_576
+output = 1_048_576
+
+[cost.text.input]
+price = 4
+cache = { read = 0.2 }
+
+[cost.text.output]
+price = 20
